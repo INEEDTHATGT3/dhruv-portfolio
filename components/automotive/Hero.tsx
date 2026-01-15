@@ -23,11 +23,6 @@ export default function Hero() {
           <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-black tracking-tighter text-zinc-900 dark:text-white leading-[0.8] mb-6">
           SAMBHAV<br />JAISWAL
         </h1>
-
-          {/* Adjust the sub-paragraph text size */}
-        <p className="font-serif italic text-xl md:text-4xl text-red-600">
-        Data Scientist & AI Specialist
-        </p>
           <div className="flex flex-col md:flex-row md:items-end gap-4">
             <p className="font-serif italic text-2xl md:text-4xl text-red-600">Data Scientist & AI Specialist</p>
             <p className="font-mono text-zinc-400 dark:text-zinc-500 text-xs uppercase tracking-widest pb-1">(Founded in Civil Engineering)</p>
