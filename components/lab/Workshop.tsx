@@ -2,168 +2,184 @@
 
 import React, { Suspense, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
-import { 
-  OrbitControls, 
-  Stage, 
-  PerspectiveCamera, 
-  Float, 
-  Html, 
-  Loader 
-} from "@react-three/drei";
+import { OrbitControls, Stage, PerspectiveCamera, Float, Html, Loader } from "@react-three/drei";
 import { motion, AnimatePresence } from "framer-motion";
+import { Github, ExternalLink, Box, Activity, Share2 } from "lucide-react";
 
-// --- sub-component: The 3D Model Logic ---
-function Model({ isWireframe, isMobile }: { isWireframe: boolean; isMobile: boolean }) {
+interface WorkshopProps {
+  isHighPerf: boolean;
+  activeProjectId: string;
+}
+
+type TabType = "3D_RENDER" | "SYSTEM_MID" | "UPLINKS";
+
+const projectMetadata: { [key: string]: any } = {
+  ive: { title: "VEHICLE_TELEMETRY", repo: "ive-core", demo: "ive-dash", units: "NCE201_UNIT_IV", color: "#ef4444" },
+  infra: { title: "STRUCTURAL_SURVIVAL", repo: "infra-manager", demo: "geospatial-hud", units: "NCE207_UNIT_III", color: "#3b82f6" },
+  neural: { title: "COGNITIVE_OS", repo: "neural-space", demo: "os-preview", units: "NCE102_UNIT_V", color: "#10b981" },
+  fintech: { title: "AGENTIC_WEALTH", repo: "fintech-eco", demo: "monte-carlo-sim", units: "NCE204_UNIT_II", color: "#f59e0b" }
+};
+
+export default function Workshop({ isHighPerf, activeProjectId }: WorkshopProps) {
+  const [activeTab, setActiveTab] = useState<TabType>("3D_RENDER");
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isInjecting, setIsInjecting] = useState(false);
+
+  function Model({ isWireframe, isMobile, isHighPerf }: { isWireframe: boolean; isMobile: boolean; isHighPerf: boolean }) {
   return (
     <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
       <mesh castShadow receiveShadow>
-        {/* Placeholder Geometry: Swap with <primitive object={nodes.YourModel} /> after GLB load */}
         <torusKnotGeometry args={[1, 0.3, 128, 32]} />
         <meshStandardMaterial 
-          color={isWireframe ? "#ef4444" : "#18181b"} 
-          wireframe={isWireframe}
-          emissive={isWireframe ? "#ef4444" : "#000000"}
-          emissiveIntensity={isWireframe ? 5 : 0}
+          color="#ef4444" 
+          // Choice Q3-B: Force wireframe in Eco Mode
+          wireframe={!isHighPerf || isWireframe} 
+          emissive="#ef4444"
+          emissiveIntensity={(!isHighPerf || isWireframe) ? 5 : 0}
           roughness={0.1}
           metalness={0.8}
         />
-        
-        {/* Choice Q2-B: Floating Data Bubbles (Hidden on mobile for performance) */}
-        {!isWireframe && !isMobile && (
-          <Html distanceFactor={8} position={[1.2, 1.2, 0]}>
-            <div className="flex flex-col gap-2 w-48 pointer-events-none select-none">
-              <div className="bg-black/80 border-l-2 border-red-600 p-3 backdrop-blur-md shadow-2xl">
-                <p className="text-[8px] text-red-600 font-mono font-black uppercase tracking-widest mb-1">
-                  FEA_STRESS_POINT_04
-                </p>
-                <p className="text-[10px] text-zinc-300 font-mono leading-tight">
-                  TORSIONAL_LOAD: 850Nm<br/>
-                  STATUS: OPTIMIZED
-                </p>
-              </div>
-            </div>
-          </Html>
-        )}
       </mesh>
     </Float>
   );
-}
+  }
 
-// --- Main Component ---
-export default function Workshop() {
-  const [isWireframe, setIsWireframe] = useState(true);
-  const [webGLError, setWebGLError] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Check for device type and screen width
+  // Choice Q2-A: State Reset on Project Change
   useEffect(() => {
-    const checkSpecs = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkSpecs();
-    window.addEventListener("resize", checkSpecs);
-    return () => window.removeEventListener("resize", checkSpecs);
-  }, []);
+    setActiveTab("3D_RENDER");
+    setIsInjecting(true);
+    setLoadingProgress(0);
+    const interval = setInterval(() => {
+      setLoadingProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => setIsInjecting(false), 400);
+          return 100;
+        }
+        return prev + 10;
+      });
+    }, 20);
+    return () => clearInterval(interval);
+  }, [activeProjectId]);
+
+  const activeColor = projectMetadata[activeProjectId]?.color || "#ef4444";
 
   return (
-    <section className="relative h-screen w-full bg-[#050505] overflow-hidden font-mono">
+    <section className="relative h-screen w-full bg-[#050505] overflow-hidden font-mono border-t border-zinc-900">
       
-      {/* 1. HUD Overlay Controls */}
-      <div className="absolute top-24 left-8 z-20 space-y-6">
-        <div className="border-l-2 border-red-600 pl-5">
-          <h2 className="text-white text-3xl font-black italic tracking-tighter">THE_WORKSHOP</h2>
-          <p className="text-zinc-600 text-[9px] uppercase tracking-[0.3em] mt-1">
-            SolidWorks // HBTU_CIVIL_ENGINEERING
-          </p>
-        </div>
-        
-        <button 
-          onClick={() => setIsWireframe(!isWireframe)}
-          className={`group relative px-6 py-3 text-[10px] font-black tracking-widest border transition-all duration-500 overflow-hidden ${
-            isWireframe 
-            ? 'bg-red-600 border-red-600 text-white' 
-            : 'bg-transparent border-zinc-800 text-zinc-500 hover:border-red-600 hover:text-white'
-          }`}
-        >
-          <span className="relative z-10">{isWireframe ? "SOLIDIFY_CHASSIS" : "ANALYZE_WIREFRAME"}</span>
-          {isWireframe && (
-            <motion.div 
-              layoutId="btn-glow" 
-              className="absolute inset-0 bg-white/20" 
-              initial={{ x: '-100%' }} animate={{ x: '100%' }} transition={{ repeat: Infinity, duration: 1.5 }}
-            />
+      {/* 1. Dashboard Push-Buttons (Choice Q1-A) */}
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 z-40 flex gap-2 bg-zinc-950 p-2 border border-zinc-800 rounded-sm shadow-2xl">
+        {(["3D_RENDER", "SYSTEM_MID", "UPLINKS"] as TabType[]).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-6 py-3 text-[9px] font-black tracking-[0.2em] transition-all border-t-2 ${
+              activeTab === tab 
+              ? `bg-zinc-900 text-white border-red-600 shadow-[inset_0_0_10px_rgba(220,38,38,0.2)]` 
+              : 'bg-zinc-950 text-zinc-600 border-transparent hover:text-zinc-400'
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      {/* 2. Injection Overlay */}
+      <AnimatePresence>
+        {isInjecting && (
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="absolute inset-0 z-30 bg-black/60 backdrop-blur-sm flex items-center justify-center"
+          >
+            <div className="text-center space-y-2">
+              <p className="text-red-600 text-[10px] font-black animate-pulse">SYNCHRONIZING_ASSETS...</p>
+              <div className="w-32 'h-[1px]' bg-zinc-800 mx-auto overflow-hidden">
+                <motion.div className="h-full bg-red-600" initial={{ x: "-100%" }} animate={{ x: "0%" }} />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 3. Main Display Area */}
+      <div className="h-full w-full pt-20">
+        <AnimatePresence mode="wait">
+          {activeTab === "3D_RENDER" && (
+            <motion.div key="3d" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="h-full w-full">
+              <Canvas shadows gl={{ antialias: isHighPerf }}>
+                <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={45} />
+                <Suspense fallback={null}>
+                  {/* Choice Q3-A: Dynamic Lighting based on project color */}
+                  <Stage environment="night" intensity={0.5} shadows={isHighPerf ? "contact" : false}>
+                    <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+                      <mesh castShadow receiveShadow>
+                        <torusKnotGeometry args={[1, 0.3, 128, 32]} />
+                        <meshStandardMaterial color={activeColor} wireframe={isInjecting} roughness={0.1} metalness={0.8} />
+                      </mesh>
+                    </Float>
+                  </Stage>
+                </Suspense>
+                <OrbitControls enableZoom={false} autoRotate={!isInjecting} />
+                <spotLight position={[5, 10, 5]} intensity={2} color={activeColor} castShadow />
+              </Canvas>
+            </motion.div>
           )}
-        </button>
+
+          {activeTab === "SYSTEM_MID" && (
+            <motion.div key="mid" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="h-full flex items-center justify-center p-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
+                <div className="border border-zinc-800 bg-zinc-900/20 p-8 rounded-sm">
+                  <h4 className="text-red-600 text-[10px] font-black uppercase mb-6 tracking-widest flex items-center gap-2">
+                    <Activity size={14} /> Technical_Logic_Source
+                  </h4>
+                  <div className="space-y-4 text-[11px] text-zinc-400 uppercase leading-relaxed">
+                    <p className="text-white font-bold tracking-tighter border-b border-zinc-800 pb-2">Academic_Anchor: {projectMetadata[activeProjectId]?.units}</p>
+                    <p>• Distributed State Persistence via Supabase</p>
+                    <p>• Mathematical Optimization: Bellman Equation</p>
+                    <p>• Hardware Target: RTX_3050_Cuda_Cores</p>
+                  </div>
+                </div>
+                <div className="border border-zinc-800 bg-zinc-900/20 p-8 rounded-sm flex flex-col justify-center items-center">
+                   <Box className="text-zinc-800 mb-4" size={48} />
+                   <p className="text-zinc-600 text-[9px] uppercase tracking-widest text-center italic">System_Architecture_Viz_Downlinking...</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {activeTab === "UPLINKS" && (
+            <motion.div key="links" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="h-full flex items-center justify-center">
+              <div className="flex flex-col gap-4 w-full max-w-md">
+                <a href={`https://github.com/INEEDTHATGT3/${projectMetadata[activeProjectId]?.repo}`} target="_blank" className="flex items-center justify-between p-6 bg-zinc-900 border border-zinc-800 hover:border-red-600 transition-all group">
+                  <div className="flex items-center gap-4">
+                    <Github className="text-zinc-500 group-hover:text-white" />
+                    <span className="text-[10px] font-black text-white uppercase tracking-widest transition-all">Source_Code_Repository</span>
+                  </div>
+                  <ExternalLink size={14} className="text-zinc-700 group-hover:text-red-600" />
+                </a>
+                <a href={`https://${projectMetadata[activeProjectId]?.demo}.streamlit.app`} target="_blank" className="flex items-center justify-between p-6 bg-zinc-900 border border-zinc-800 hover:border-red-600 transition-all group">
+                  <div className="flex items-center gap-4">
+                    <Share2 className="text-zinc-500 group-hover:text-white" />
+                    <span className="text-[10px] font-black text-white uppercase tracking-widest transition-all">Live_Deployment_Dashboard</span>
+                  </div>
+                  <ExternalLink size={14} className="text-zinc-700 group-hover:text-red-600" />
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* 2. Hardware Status HUD */}
-      <div className="absolute bottom-10 left-8 z-10 opacity-30 pointer-events-none">
-        <div className="flex flex-col gap-1 text-[8px] text-zinc-500 uppercase">
-          <p className="flex items-center gap-2">
-            <span className={`w-1 h-1 rounded-full ${webGLError ? 'bg-red-600' : 'bg-green-500 animate-pulse'}`} />
-            GPU_ACCELERATION: {isMobile ? "MOBILE_OPTIMIZED" : "RTX_3050_ACTIVE"}
-          </p>
-          <p>RENDERING_CONTEXT: {webGLError ? "FALLBACK_2D" : "WEBGL_2.0"}</p>
-        </div>
+      {/* 4. Footer HUD */}
+      <div className="absolute bottom-10 left-10 flex flex-col gap-1">
+         <div className="flex items-center gap-3">
+            <div className="w-1 h-1 rounded-full bg-red-600 animate-pulse" />
+            <span className="text-[10px] text-white font-black italic tracking-tighter uppercase">
+              {projectMetadata[activeProjectId]?.title}_LAB_ENVIRONMENT
+            </span>
+         </div>
+         <span className="text-[8px] text-zinc-600 uppercase ml-4 tracking-[0.2em]">Operator: Sambhav_Jaiswal</span>
       </div>
-
-      {/* 3. The 3D Canvas with Fallback Logic */}
-      {webGLError ? (
-        /* --- FALLBACK UI: For Lenovo / Context Blocked --- */
-        <div className="flex flex-col items-center justify-center h-full text-center">
-          <div className="border border-zinc-900 bg-zinc-950/50 p-12 rounded-sm max-w-md mx-auto">
-            <div className="w-12 h-12 border-2 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-6" />
-            <h3 className="text-red-600 text-sm font-black uppercase mb-2 italic">Context_Loss_Detected</h3>
-            <p className="text-zinc-600 text-[10px] leading-relaxed uppercase">
-              The browser has blocked WebGL. Refresh or check your RTX 3050 settings in Chrome Flags.
-            </p>
-          </div>
-        </div>
-      ) : (
-        /* --- 3D VIEW: For Acer Aspire 7 / Mi 11X --- */
-        <Canvas 
-          shadows 
-          dpr={isMobile ? [1, 1.2] : [1, 2]} // Lower resolution for Mi 11X
-          gl={{ 
-            antialias: false, 
-            powerPreference: "high-performance",
-            alpha: true 
-          }}
-          onCreated={({ gl }) => {
-            gl.getContext().canvas.addEventListener('webglcontextlost', (e) => {
-              e.preventDefault();
-              setWebGLError(true);
-            }, false);
-          }}
-        >
-          <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={isMobile ? 60 : 45} />
-          
-          <Suspense fallback={null}>
-            <Stage 
-              environment="night" 
-              intensity={0.5} 
-              shadows={isMobile ? false : { type: 'contact', opacity: 0.5, blur: 3 }}
-              adjustCamera={false}
-            >
-              <Model isWireframe={isWireframe} isMobile={isMobile} />
-            </Stage>
-          </Suspense>
-
-          <OrbitControls 
-            enableZoom={false} 
-            autoRotate={!isWireframe} 
-            autoRotateSpeed={0.8}
-            maxPolarAngle={Math.PI / 1.8}
-            minPolarAngle={Math.PI / 2.5}
-          />
-          
-          {/* Choice Q3-B: Night Garage Lighting */}
-          <spotLight position={[5, 10, 5]} angle={0.3} penumbra={1} intensity={2} color="#ef4444" castShadow />
-          <pointLight position={[-5, -5, -5]} intensity={1} color="#3b82f6" />
-        </Canvas>
-      )}
-      
-      <Loader /> {/* Technical loading bar for the 3D assets */}
     </section>
   );
 }

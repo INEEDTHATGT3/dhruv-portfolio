@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Automotive & UI Components
@@ -28,49 +28,78 @@ const NAV_LINKS = [
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isHighPerf, setIsHighPerf] = useState(true);
+  const [activeProject, setActiveProject] = useState("ive");
+
+  // Logic: High Perf = Dark Mode // Eco = Light Mode
+  useEffect(() => {
+    if (isHighPerf) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isHighPerf]);
 
   return (
-    <main className="min-h-screen bg-black selection:bg-red-600 selection:text-white overflow-x-hidden">
+    <main className="min-h-screen bg-[#F5F5F0] dark:bg-black transition-colors duration-700 selection:bg-red-600 selection:text-white overflow-x-hidden">
       {isLoading ? (
         <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
       ) : (
         <>
-          <FEAHeatmap />
+          {isHighPerf && <FEAHeatmap />}
           
-          {/* Unified Navigation Hub */}
-          <div className="fixed top-8 right-8 'z-100' flex flex-col items-end gap-2">
-            <div 
-              onClick={() => setIsNavOpen(!isNavOpen)}
-              className="flex items-center bg-zinc-950/90 backdrop-blur-xl border border-white/10 rounded-full p-1.5 shadow-2xl cursor-pointer group hover:border-red-600 transition-all"
-            >
-              <div className="px-5 py-2 border-r border-white/10">
-                <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-[0.3em] font-black group-hover:text-red-600 transition-colors">
-                  {isNavOpen ? "CLOSE_MENU" : "IGNITION_CONTROL"}
-                </span>
-              </div>
-              <div className="px-4 py-2">
-                <TurboIcon />
+          {/* FIXED NAVIGATION HUB - Typo Fixed & Z-Index Corrected */}
+          <div className="fixed top-8 right-8 z-[999] flex flex-col items-end gap-3">
+            <div className="flex items-center gap-3">
+              
+              <button 
+                onClick={() => setIsHighPerf(!isHighPerf)}
+                className={`relative flex items-center gap-3 px-6 py-2.5 rounded-full font-mono text-[9px] font-black tracking-[0.2em] transition-all duration-500 border ${
+                  isHighPerf 
+                  ? 'bg-zinc-900/80 backdrop-blur-xl border-red-600/50 text-white shadow-[0_0_20px_rgba(220,38,38,0.2)]' 
+                  : 'bg-white/80 backdrop-blur-xl border-zinc-200 text-zinc-500 shadow-xl'
+                }`}
+              >
+                <div className={`w-1.5 h-1.5 rounded-full ${isHighPerf ? 'bg-red-600 animate-pulse' : 'bg-zinc-300'}`} />
+                {isHighPerf ? "SYS: HIGH_PERF // DARK" : "SYS: ECO_MODE // LIGHT"}
+              </button>
+
+              <div 
+                onClick={() => setIsNavOpen(!isNavOpen)}
+                className={`flex items-center backdrop-blur-2xl border rounded-full p-1.5 shadow-2xl cursor-pointer group transition-all duration-500 ${
+                  isHighPerf ? 'bg-zinc-950/90 border-white/10' : 'bg-white/90 border-zinc-200'
+                }`}
+              >
+                <div className="px-5 py-2 border-r border-zinc-800/20 dark:border-white/10">
+                  <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-[0.3em] font-black group-hover:text-red-600 transition-colors">
+                    {isNavOpen ? "CLOSE" : "IGNITION"}
+                  </span>
+                </div>
+                <div className="px-4 py-2">
+                  <TurboIcon />
+                </div>
               </div>
             </div>
 
-            {/* Dropdown Menu */}
             <AnimatePresence>
               {isNavOpen && (
                 <motion.div 
                   initial={{ opacity: 0, y: -20, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  className="bg-zinc-950/95 border border-white/10 backdrop-blur-2xl p-6 rounded-2xl w-64 shadow-3xl"
+                  className={`border backdrop-blur-3xl p-6 rounded-2xl w-72 shadow-3xl transition-colors duration-500 ${
+                    isHighPerf ? 'bg-zinc-950/95 border-white/10' : 'bg-white/95 border-zinc-200'
+                  }`}
                 >
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-5">
                     {NAV_LINKS.map((link) => (
                       <a 
                         key={link.name} 
                         href={link.href}
                         onClick={() => setIsNavOpen(false)}
-                        className="font-mono text-[10px] text-zinc-500 hover:text-red-600 tracking-widest transition-colors flex items-center gap-3 group"
+                        className="font-mono text-[10px] text-zinc-500 hover:text-red-600 tracking-[0.2em] transition-all flex items-center gap-4 group"
                       >
-                        <span className="w-1 h-1 bg-zinc-800 group-hover:bg-red-600 transition-colors" />
+                        <span className="w-1 h-1 bg-zinc-800 group-hover:bg-red-600 transition-colors rotate-45" />
                         {link.name}
                       </a>
                     ))}
@@ -80,17 +109,16 @@ export default function Home() {
             </AnimatePresence>
           </div>
 
-          {/* Sections with IDs for Navigation */}
-          <section id="hero"><Hero /></section>
-          <section id="bridge"><Bridge /></section>
-          <section id="garage"><Garage /></section>
-          <section id="workshop"><Workshop /></section>
-          <section id="specs"><Skills /></section>
-          <section id="resume"><Logbook /></section>
-          <section id="terminal"><Terminal /></section>
+          {/* MODULES - Wrappers removed to fix Sticky Lock and Dead Space */}
+          <Hero />
+          <Bridge />
+          <Garage onProjectSelect={(id) => {setActiveProject(id);}} />
+          <Workshop isHighPerf={isHighPerf} activeProjectId={activeProject} />
+          <Skills />
+          <Logbook />
+          <Terminal />
         </>
       )}
     </main>
   );
 }
-

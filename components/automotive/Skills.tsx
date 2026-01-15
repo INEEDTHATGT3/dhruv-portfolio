@@ -41,7 +41,7 @@ export default function Skills() {
       <div className="max-w-6xl mx-auto">
         <h2 className="text-red-600 text-xs tracking-[0.5em] mb-12 uppercase">Module_04 // Performance_Specs</h2>
         
-        <div className="flex flex-col md:flex-row gap-4 h-[500px]">
+        <div className="flex flex-col md:flex-row gap-4 'h-[500px]'">
           {(Object.keys(skillData) as Array<keyof typeof skillData>).map((key) => (
             <motion.div 
               key={key}

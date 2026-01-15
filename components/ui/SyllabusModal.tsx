@@ -12,7 +12,7 @@ export default function SyllabusModal({ isOpen, onClose, data }: ModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
+        <div className="fixed inset-0 'z-200' flex items-center justify-center p-6">
           <motion.div 
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={onClose} className="absolute inset-0 bg-black/90 backdrop-blur-sm" 

@@ -54,10 +54,10 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
         <motion.div
           exit={{ opacity: 0, scale: 1.1 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 z-[999] bg-black flex flex-col items-center justify-center font-mono text-white"
+          className="fixed inset-0 'z-[999]' bg-black flex flex-col items-center justify-center font-mono text-white"
         >
           {/* Dashboard Grid Background Overlay */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+          <div className="absolute inset-0 opacity-10 pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] 'bg-[size:40px_40px]'"></div>
 
           <div className="relative flex flex-col items-center">
             {/* Blinking Ignition Text */}
@@ -98,8 +98,8 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
 
           {/* User Branding Footer */}
           <div className="absolute bottom-10 flex flex-col items-center gap-1 opacity-40">
-            <span className="text-[10px] tracking-widest uppercase">Dhruv Jaiswal</span>
-            <span className="text-[8px] tracking-widest opacity-60 uppercase">HBTU Civil × Data Intelligence</span>
+          <span className="text-[10px] tracking-widest uppercase">Sambhav Jaiswal</span>
+          <span className="text-[8px] tracking-widest opacity-60 uppercase font-bold">Data Scientist // AI Specialist</span>
           </div>
         </motion.div>
       )}

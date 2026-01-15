@@ -16,9 +16,27 @@ export default function Bridge() {
   const opacity = useTransform(scrollYProgress, [0.2, 0.4], [0, 1]);
 
   const mappings = [
-    { civil: "NCE204 // SA-I", civilDetail: "Indeterminacy & Load Paths", data: "DSA // Graph Theory", dataDetail: "Network Topology & Connectivity" },
-    { civil: "NCE201 // FLUID MECH", civilDetail: "Dynamic Pressure & Flow", data: "KAFKA // STREAMING", dataDetail: "High-Velocity Data Pipelines" },
-    { civil: "NCE207 // GEOTECH-I", civilDetail: "Stress Distribution", data: "ML // OPTIMIZATION", dataDetail: "Loss Function Convergence" },
+    { 
+      civil: "NCE201 // FLUID MECHANICS", 
+      civilDetail: "Unit IV: Flow in Pipes & Losses", 
+      data: "KAFKA // DATA STREAMING", 
+      dataDetail: "High-Throughput Ingestion & Buffer Dynamics",
+      logic: "Managing 'Head Loss' in pipes is mathematically identical to managing 'Latency' in data pipelines."
+    },
+    { 
+      civil: "NCE207 // GEOTECHNICAL-I", 
+      civilDetail: "Unit III: Consolidation Theory", 
+      data: "ML // OPTIMIZATION", 
+      dataDetail: "Gradient Descent & Loss Convergence",
+      logic: "Soil settlement over time (Consolidation) mimics the convergence of a Neural Network toward a global minimum."
+    },
+    { 
+      civil: "NCE102 // ENG. GRAPHICS", 
+      civilDetail: "Unit IV: Isometric Projections", 
+      data: "CV // OBJECT DETECTION", 
+      dataDetail: "Spatial 3D Reconstruction from 2D Frames",
+      logic: "Projecting 3D objects onto 2D planes (SolidWorks) is the inverse of Computer Vision (YOLOv8) interpreting 3D space from pixels."
+    },
   ];
 
   return (
@@ -32,7 +50,7 @@ export default function Bridge() {
 
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-0 border border-zinc-200 overflow-hidden">
           {/* Vertical Red Line */}
-          <div className="absolute inset-y-0 left-1/2 w-[1px] bg-red-600/30 border-r border-dashed border-red-600 hidden md:block z-20" />
+          <div className="absolute inset-y-0 left-1/2 w-px bg-red-600/30 border-r border-dashed border-red-600 hidden md:block z-20" />
 
           {mappings.map((item, i) => (
             <motion.div key={i} className="contents">
@@ -66,7 +84,7 @@ export default function Bridge() {
         >
           <p className="text-zinc-300 group-hover:text-red-600 transition-colors text-xs tracking-widest mb-2">FINAL_EQUATION</p>
           <p className="text-2xl font-serif italic text-zinc-400 group-hover:text-zinc-900 transition-colors px-4">
-            "Engineering is Engineering — The Mathematics is the Same"
+            "Engineering is Engineering — The Mathematics is Same"
           </p>
         </motion.div>
       </div>
