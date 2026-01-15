@@ -36,7 +36,8 @@ export default function Logbook() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-16 border-l-2 border-red-600 pl-6">
           <h2 className="text-zinc-500 text-[10px] tracking-[0.5em] uppercase mb-2">Service_History // V.04</h2>
-          <h3 className="text-5xl font-black text-white tracking-tighter italic uppercase">Technical_Logbook</h3>
+          {/* Mobile Typography Fix: text-3xl on mobile, text-5xl on desktop */}
+          <h3 className="text-3xl md:text-5xl font-black text-white tracking-tighter italic uppercase">Technical_Logbook</h3>
         </div>
 
         <div className="space-y-4">
@@ -60,8 +61,9 @@ export default function Logbook() {
                   <span className="text-red-600 text-[9px] font-black tracking-widest">[{log.timestamp}]</span>
                   <span className="text-zinc-700 text-[8px] font-black border border-zinc-800 px-2 py-0.5 rounded-full">{log.type}</span>
                 </div>
-                <h4 className="text-white text-lg font-black tracking-tight mb-2 uppercase italic">{log.event}</h4>
-                <p className="text-zinc-500 text-xs leading-relaxed max-w-2xl uppercase tracking-tighter">{log.details}</p>
+                {/* Mobile Typography Fix: text-base on mobile, text-lg on desktop */}
+                <h4 className="text-white text-base md:text-lg font-black tracking-tight mb-2 uppercase italic">{log.event}</h4>
+                <p className="text-zinc-500 text-[10px] md:text-xs leading-relaxed max-w-2xl uppercase tracking-tighter">{log.details}</p>
               </div>
             </motion.div>
           ))}
@@ -70,9 +72,9 @@ export default function Logbook() {
         <div className="mt-20 flex justify-center">
           <button 
             onClick={handleDownload}
-            className="group relative px-12 py-4 bg-zinc-900 border border-zinc-800 overflow-hidden transition-all hover:border-red-600"
+            className="group relative px-8 md:px-12 py-4 bg-zinc-900 border border-zinc-800 overflow-hidden transition-all hover:border-red-600 w-full md:w-auto"
           >
-            <span className="relative z-10 text-white text-[10px] font-black tracking-[0.3em] uppercase">Download_Full_Service_Manual (PDF)</span>
+            <span className="relative z-10 text-white text-[9px] md:text-[10px] font-black tracking-[0.3em] uppercase">Download_Full_Service_Manual (PDF)</span>
             <div className="absolute inset-0 bg-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
           </button>
         </div>

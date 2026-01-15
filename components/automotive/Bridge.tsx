@@ -45,7 +45,7 @@ export default function Bridge() {
         
         <motion.div style={{ opacity }} className="text-center mb-24">
           <h2 className="text-red-600 text-xs tracking-[0.6em] uppercase mb-4 font-black">Module_02 // The_Bridge</h2>
-          <h3 className="text-5xl font-black tracking-tighter text-zinc-900">STRUCTURAL DATA INTELLIGENCE</h3>
+          <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-zinc-900">STRUCTURAL DATA INTELLIGENCE</h3>
         </motion.div>
 
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-0 border border-zinc-200 overflow-hidden">

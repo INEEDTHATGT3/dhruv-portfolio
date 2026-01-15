@@ -39,7 +39,7 @@ const RadarHUD = ({ data }: { data: typeof PILLARS }) => {
 
   return (
     <div className="relative flex items-center justify-center bg-zinc-900/20 rounded-sm border border-zinc-800 p-4">
-      <svg width={size} height={size} className="drop-shadow-[0_0_10px_rgba(220,38,38,0.2)]">
+      <svg viewBox={`0 0 ${size} ${size}`}className="w-full max-w-[300px] h-auto drop-shadow-[0_0_10px_rgba(220,38,38,0.2)]">
         {/* Background Hexagon Rings */}
         {[0.2, 0.4, 0.6, 0.8, 1].map((r) => (
           <polygon
