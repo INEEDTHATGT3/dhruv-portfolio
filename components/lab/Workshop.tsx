@@ -1,184 +1,213 @@
 "use client";
 
-import React, { Suspense, useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Stage, PerspectiveCamera, Float, Html, Loader } from "@react-three/drei";
+import { useGLTF, OrbitControls, Stage, PerspectiveCamera, Float, Environment, TorusKnot, Icosahedron, Cylinder, Torus, Lathe, Box as Box3D } from "@react-three/drei";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, ExternalLink, Box, Activity, Share2 } from "lucide-react";
+import { Github, ExternalLink, Activity, Box as LucideBox, Share2, ChevronRight, Database, Wrench, AlertTriangle } from "lucide-react";
+import * as THREE from "three";
 
 interface WorkshopProps {
   isHighPerf: boolean;
-  activeProjectId: string;
+  setIsHighPerf: (val: boolean) => void;
+  activeProjectId: string; 
 }
 
-type TabType = "3D_RENDER" | "SYSTEM_MID" | "UPLINKS";
+type OptionType = "VISUAL_DISPLAY" | "TECH_SPECS" | "UPLINKS";
 
 const projectMetadata: { [key: string]: any } = {
-  ive: { title: "VEHICLE_TELEMETRY", repo: "ive-core", demo: "ive-dash", units: "NCE201_UNIT_IV", color: "#ef4444" },
-  infra: { title: "STRUCTURAL_SURVIVAL", repo: "infra-manager", demo: "geospatial-hud", units: "NCE207_UNIT_III", color: "#3b82f6" },
-  neural: { title: "COGNITIVE_OS", repo: "neural-space", demo: "os-preview", units: "NCE102_UNIT_V", color: "#10b981" },
-  fintech: { title: "AGENTIC_WEALTH", repo: "fintech-eco", demo: "monte-carlo-sim", units: "NCE204_UNIT_II", color: "#f59e0b" }
+  ive: { 
+    title: "VEHICLE_TELEMETRY", visualType: "PENDING", status: "PHASE_04: STABLE_INGESTION",
+    description: "Current: 10Hz Kafka pipeline active. // Previous: Resolved buffer overflow in Spark streaming.",
+    repo: "ive-core", demo: "ive-dash", color: "#ef4444"
+  },
+  fintech: { 
+    title: "AGENTIC_FINTECH", visualType: "PENDING", status: "PHASE_01: ARCHITECTURE",
+    description: "Current: Designing Llama 3.2 NLP parser. // Previous: Market volatility data cleaning complete.",
+    repo: "fintech-eco", demo: "wealth-sim", color: "#f59e0b"
+  },
+  personal_os: { 
+    title: "NEURAL_SPACE", visualType: "PENDING", status: "PHASE_03: UI_SYNC",
+    description: "Current: Flutter-Supabase sync optimization. // Previous: 1440px grid logic implemented.",
+    repo: "neural-space", demo: "os-preview", color: "#10b981"
+  },
+  infra: { 
+    title: "SMART_INFRA", visualType: "PENDING", status: "PHASE_02: MODELING",
+    description: "Current: Structural survival math verified. // Previous: SolidWorks schematic finalized.",
+    repo: "infra-manager", demo: "geospatial-hud", color: "#3b82f6"
+  },
+  solidworks: {
+    title: "MECHANICAL_LAB", visualType: "3D_MULTI",
+    models: [
+      { id: "knot", name: "TORUS_KNOT", type: "knot" },
+      { id: "plate", name: "CLUTCH_ASSEMBLY", type: "plate" },
+      { id: "flask", name: "LAB_GLASSWARE", type: "flask" }
+    ],
+    status: "ENGINEERING_ARCHIVE",
+    description: "Showcase of HBTU Civil Engineering mechanical modeling. // High-fidelity procedural reconstructions.",
+    repo: "solidworks-archive", color: "#ffffff"
+  }
 };
 
-export default function Workshop({ isHighPerf, activeProjectId }: WorkshopProps) {
-  const [activeTab, setActiveTab] = useState<TabType>("3D_RENDER");
-  const [loadingProgress, setLoadingProgress] = useState(0);
+export default function Workshop({ isHighPerf, setIsHighPerf, activeProjectId: garageId }: WorkshopProps) {
+  const [activeSection, setActiveSection] = useState(garageId);
+  const [activeOption, setActiveOption] = useState<OptionType>("VISUAL_DISPLAY");
+  const [activeSWModel, setActiveSWModel] = useState(0);
   const [isInjecting, setIsInjecting] = useState(false);
 
-  function Model({ isWireframe, isMobile, isHighPerf }: { isWireframe: boolean; isMobile: boolean; isHighPerf: boolean }) {
-  return (
-    <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
-      <mesh castShadow receiveShadow>
-        <torusKnotGeometry args={[1, 0.3, 128, 32]} />
-        <meshStandardMaterial 
-          color="#ef4444" 
-          // Choice Q3-B: Force wireframe in Eco Mode
-          wireframe={!isHighPerf || isWireframe} 
-          emissive="#ef4444"
-          emissiveIntensity={(!isHighPerf || isWireframe) ? 5 : 0}
-          roughness={0.1}
-          metalness={0.8}
-        />
-      </mesh>
-    </Float>
-  );
-  }
-
-  // Choice Q2-A: State Reset on Project Change
   useEffect(() => {
-    setActiveTab("3D_RENDER");
+    setActiveSection(garageId);
     setIsInjecting(true);
-    setLoadingProgress(0);
-    const interval = setInterval(() => {
-      setLoadingProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setIsInjecting(false), 400);
-          return 100;
-        }
-        return prev + 10;
-      });
-    }, 20);
-    return () => clearInterval(interval);
-  }, [activeProjectId]);
+    const timer = setTimeout(() => setIsInjecting(false), 600);
+    return () => clearTimeout(timer);
+  }, [garageId]);
 
-  const activeColor = projectMetadata[activeProjectId]?.color || "#ef4444";
+  const currentData = projectMetadata[activeSection] || projectMetadata["ive"];
+
+  const flaskPoints = useMemo(() => {
+    const pts = [];
+    for (let i = 0; i < 20; i++) {
+      const x = i < 10 ? Math.sin(i * 0.3) * 1.5 + 0.5 : 0.6;
+      pts.push(new THREE.Vector2(x, (i - 10) * 0.4));
+    }
+    return pts;
+  }, []);
+
+  const ProceduralModel = ({ type, color }: { type: string, color: string }) => {
+    const materialProps = {
+      color: isHighPerf ? "#ffffff" : color,
+      metalness: 0.9, roughness: 0.1, emissive: color, emissiveIntensity: 0.1, wireframe: !isHighPerf
+    };
+
+    switch (type) {
+      case "plate":
+        return (
+          <group>
+            <Cylinder args={[1.5, 1.5, 0.2, 64]}><meshPhysicalMaterial {...materialProps} /></Cylinder>
+            {Array.from({ length: 12 }).map((_, i) => (
+              <group key={i} rotation={[0, (i * Math.PI * 2) / 12, 0]}>
+                <Cylinder args={[0.1, 0.1, 0.4, 16]} position={[1.2, 0.1, 0]}><meshPhysicalMaterial {...materialProps} color="#666" /></Cylinder>
+              </group>
+            ))}
+          </group>
+        );
+      case "flask":
+        return (
+          <group>
+            <Lathe args={[flaskPoints, 64]}><meshPhysicalMaterial {...materialProps} opacity={0.3} transparent transmission={1} thickness={0.5} /></Lathe>
+          </group>
+        );
+      case "knot":
+        return <TorusKnot args={[1, 0.35, 256, 32]}><meshPhysicalMaterial {...materialProps} /></TorusKnot>;
+      default:
+        return (
+          <Icosahedron args={[1.5, 2]}>
+            <meshStandardMaterial wireframe color={color} emissive={color} emissiveIntensity={2} />
+          </Icosahedron>
+        );
+    }
+  };
 
   return (
-    <section className="relative h-screen w-full bg-[#050505] overflow-hidden font-mono border-t border-zinc-900">
-      
-      {/* 1. Dashboard Push-Buttons (Choice Q1-A) */}
-      <div className="absolute top-8 left-1/2 -translate-x-1/2 z-40 flex gap-2 bg-zinc-950 p-2 border border-zinc-800 rounded-sm shadow-2xl">
-        {(["3D_RENDER", "SYSTEM_MID", "UPLINKS"] as TabType[]).map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-6 py-3 text-[9px] font-black tracking-[0.2em] transition-all border-t-2 ${
-              activeTab === tab 
-              ? `bg-zinc-900 text-white border-red-600 shadow-[inset_0_0_10px_rgba(220,38,38,0.2)]` 
-              : 'bg-zinc-950 text-zinc-600 border-transparent hover:text-zinc-400'
-            }`}
-          >
-            {tab}
+    <section id="workshop" className="relative h-screen w-full bg-[#030303] overflow-hidden font-mono border-t border-zinc-900 text-white">
+      <div className="absolute top-10 left-0 w-full z-40 flex flex-col items-center gap-6 px-4">
+        <div className="flex gap-2 bg-zinc-950/80 backdrop-blur-md p-1 border border-zinc-800 rounded-sm shadow-2xl">
+          {["VISUAL_DISPLAY", "TECH_SPECS", "UPLINKS"].map((opt) => (
+            <button key={opt} onClick={() => setActiveOption(opt as OptionType)} className={`px-4 py-2 text-[9px] font-black ${activeOption === opt ? "bg-red-600 text-white" : "text-zinc-600"}`}>
+              {opt}
+            </button>
+          ))}
+        </div>
+
+        {activeSection === "solidworks" && activeOption === "VISUAL_DISPLAY" && (
+          <div className="flex flex-wrap justify-center gap-3">
+            {currentData.models.map((m: any, i: number) => (
+              <button key={m.id} onClick={() => setActiveSWModel(i)} className={`text-[8px] px-3 py-1 border border-zinc-800 rounded-full ${activeSWModel === i ? "bg-white text-black" : "text-zinc-500"}`}>
+                {m.name}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* SIDEBAR HUD */}
+      <div className="absolute left-8 top-1/2 -translate-y-1/2 flex-col gap-6 z-40 hidden lg:flex border-l border-zinc-900 pl-6">
+        {Object.keys(projectMetadata).map((key, idx) => (
+          <button key={key} onClick={() => setActiveSection(key)} className={`text-left transition-all ${activeSection === key ? "translate-x-2" : "opacity-30"}`}>
+            <p className="text-[7px] text-zinc-500 mb-1">SEC_0{idx + 1}</p>
+            <p className={`text-[10px] font-black tracking-widest ${activeSection === key ? "text-red-600" : "text-white"}`}>{key.toUpperCase()}</p>
           </button>
         ))}
       </div>
 
-      {/* 2. Injection Overlay */}
-      <AnimatePresence>
-        {isInjecting && (
-          <motion.div 
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="absolute inset-0 z-30 bg-black/60 backdrop-blur-sm flex items-center justify-center"
-          >
-            <div className="text-center space-y-2">
-              <p className="text-red-600 text-[10px] font-black animate-pulse">SYNCHRONIZING_ASSETS...</p>
-              <div className="w-32 'h-[1px]' bg-zinc-800 mx-auto overflow-hidden">
-                <motion.div className="h-full bg-red-600" initial={{ x: "-100%" }} animate={{ x: "0%" }} />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* 3. Main Display Area */}
-      <div className="h-full w-full pt-20">
+      <div className="h-full w-full">
         <AnimatePresence mode="wait">
-          {activeTab === "3D_RENDER" && (
-            <motion.div key="3d" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="h-full w-full">
-              <Canvas shadows gl={{ antialias: isHighPerf }}>
-                <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={45} />
-                <Suspense fallback={null}>
-                  {/* Choice Q3-A: Dynamic Lighting based on project color */}
-                  <Stage environment="night" intensity={0.5} shadows={isHighPerf ? "contact" : false}>
-                    <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-                      <mesh castShadow receiveShadow>
-                        <torusKnotGeometry args={[1, 0.3, 128, 32]} />
-                        <meshStandardMaterial color={activeColor} wireframe={isInjecting} roughness={0.1} metalness={0.8} />
-                      </mesh>
-                    </Float>
-                  </Stage>
-                </Suspense>
-                <OrbitControls enableZoom={false} autoRotate={!isInjecting} />
-                <spotLight position={[5, 10, 5]} intensity={2} color={activeColor} castShadow />
-              </Canvas>
+          {activeOption === "VISUAL_DISPLAY" && (
+            <motion.div key={`${activeSection}-${activeSWModel}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full w-full relative">
+              {isHighPerf ? (
+                <>
+                  <Canvas shadows dpr={[1, 2]}>
+                    <Suspense fallback={null}>
+                      <Stage environment="night" intensity={0.5} shadows="contact">
+                        <Float speed={2}><ProceduralModel type={activeSection === "solidworks" ? currentData.models[activeSWModel].type : currentData.visualType} color={currentData.color} /></Float>
+                      </Stage>
+                    </Suspense>
+                    <OrbitControls enableZoom={false} autoRotate={!isInjecting} />
+                  </Canvas>
+                  {currentData.visualType === "PENDING" && (
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
+                      <AlertTriangle size={24} className="text-red-600 mx-auto mb-4 animate-pulse" />
+                      <p className="text-[10px] text-white font-black tracking-[0.4em] uppercase">Visual_Asset_Pending</p>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="flex flex-col items-center justify-center h-full gap-8 p-10">
+                  <LucideBox size={100} className="text-zinc-800 animate-pulse" />
+                  <div className="text-center space-y-4 max-w-xs">
+                    <p className="text-[10px] tracking-[0.4em] text-zinc-500 uppercase">Static_Diagnostic_Mode</p>
+                    <p className="text-[8px] text-zinc-600 leading-relaxed uppercase">System detected low-power hardware. 3D rendering deactivated to preserve chassis integrity.</p>
+                    <button onClick={() => setIsHighPerf(true)} className="text-red-600 text-[8px] font-black underline underline-offset-4">FORCE_SPORT_MODE</button>
+                  </div>
+                </div>
+              )}
             </motion.div>
           )}
 
-          {activeTab === "SYSTEM_MID" && (
-            <motion.div key="mid" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="h-full flex items-center justify-center p-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
-                <div className="border border-zinc-800 bg-zinc-900/20 p-8 rounded-sm">
-                  <h4 className="text-red-600 text-[10px] font-black uppercase mb-6 tracking-widest flex items-center gap-2">
-                    <Activity size={14} /> Technical_Logic_Source
-                  </h4>
-                  <div className="space-y-4 text-[11px] text-zinc-400 uppercase leading-relaxed">
-                    <p className="text-white font-bold tracking-tighter border-b border-zinc-800 pb-2">Academic_Anchor: {projectMetadata[activeProjectId]?.units}</p>
-                    <p>• Distributed State Persistence via Supabase</p>
-                    <p>• Mathematical Optimization: Bellman Equation</p>
-                    <p>• Hardware Target: RTX_3050_Cuda_Cores</p>
-                  </div>
+          {activeOption === "TECH_SPECS" && (
+            <motion.div key="tech" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }} className="h-full flex items-center justify-center p-6">
+              <div className="max-w-xl w-full border border-zinc-800 bg-zinc-900/10 p-8">
+                <div className="flex items-center gap-3 mb-8 border-b border-zinc-800 pb-4">
+                  <Activity size={16} className="text-red-600" />
+                  <h3 className="text-[11px] font-black tracking-widest uppercase">{currentData.status}</h3>
                 </div>
-                <div className="border border-zinc-800 bg-zinc-900/20 p-8 rounded-sm flex flex-col justify-center items-center">
-                   <Box className="text-zinc-800 mb-4" size={48} />
-                   <p className="text-zinc-600 text-[9px] uppercase tracking-widest text-center italic">System_Architecture_Viz_Downlinking...</p>
-                </div>
+                <p className="text-zinc-300 text-xs leading-relaxed uppercase">{currentData.description}</p>
               </div>
             </motion.div>
           )}
 
-          {activeTab === "UPLINKS" && (
-            <motion.div key="links" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="h-full flex items-center justify-center">
-              <div className="flex flex-col gap-4 w-full max-w-md">
-                <a href={`https://github.com/INEEDTHATGT3/${projectMetadata[activeProjectId]?.repo}`} target="_blank" className="flex items-center justify-between p-6 bg-zinc-900 border border-zinc-800 hover:border-red-600 transition-all group">
-                  <div className="flex items-center gap-4">
-                    <Github className="text-zinc-500 group-hover:text-white" />
-                    <span className="text-[10px] font-black text-white uppercase tracking-widest transition-all">Source_Code_Repository</span>
-                  </div>
-                  <ExternalLink size={14} className="text-zinc-700 group-hover:text-red-600" />
-                </a>
-                <a href={`https://${projectMetadata[activeProjectId]?.demo}.streamlit.app`} target="_blank" className="flex items-center justify-between p-6 bg-zinc-900 border border-zinc-800 hover:border-red-600 transition-all group">
-                  <div className="flex items-center gap-4">
-                    <Share2 className="text-zinc-500 group-hover:text-white" />
-                    <span className="text-[10px] font-black text-white uppercase tracking-widest transition-all">Live_Deployment_Dashboard</span>
-                  </div>
-                  <ExternalLink size={14} className="text-zinc-700 group-hover:text-red-600" />
-                </a>
-              </div>
+          {activeOption === "UPLINKS" && (
+            <motion.div key="up" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="h-full flex items-center justify-center">
+               <div className="flex flex-col gap-4 w-full max-w-xs">
+                  <a href={`https://github.com/INEEDTHATGT3/${currentData.repo}`} target="_blank" className="flex items-center justify-between p-4 border border-zinc-800 bg-zinc-950 hover:border-red-600 transition-all group">
+                    <Github size={16} className="text-zinc-600 group-hover:text-white" />
+                    <span className="text-[10px] font-black tracking-widest uppercase">Source_Repo</span>
+                    <ChevronRight size={12} className="text-red-600" />
+                  </a>
+               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* 4. Footer HUD */}
-      <div className="absolute bottom-10 left-10 flex flex-col gap-1">
-         <div className="flex items-center gap-3">
-            <div className="w-1 h-1 rounded-full bg-red-600 animate-pulse" />
-            <span className="text-[10px] text-white font-black italic tracking-tighter uppercase">
-              {projectMetadata[activeProjectId]?.title}_LAB_ENVIRONMENT
-            </span>
-         </div>
-         <span className="text-[8px] text-zinc-600 uppercase ml-4 tracking-[0.2em]">Operator: Sambhav_Jaiswal</span>
+      <div className="absolute bottom-8 left-10 right-10 flex justify-between items-center border-t border-white/5 pt-6">
+        <div className="flex items-center gap-4">
+          <Database size={14} className="text-red-600" />
+          <div>
+            <p className="text-[10px] font-black tracking-widest uppercase">{currentData.title}</p>
+            <p className="text-[8px] text-zinc-600 tracking-widest uppercase">GPU: {isHighPerf ? "RTX_3050" : "ECO_MODE"}</p>
+          </div>
+        </div>
       </div>
     </section>
   );

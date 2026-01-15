@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { useHardwareDetection } from "../hooks/useHardwareDetection";
 
-// Automotive & UI Components
+// Components
 import LoadingScreen from "@/components/automotive/LoadingScreen";
 import Hero from "@/components/automotive/Hero";
 import Bridge from "@/components/automotive/Bridge";
@@ -14,7 +15,6 @@ import Terminal from "@/components/ui/Terminal";
 import TurboIcon from "@/components/automotive/TurboIcon";
 import FEAHeatmap from "@/components/automotive/FEAHeatmap";
 
-// Navigation Logic
 const NAV_LINKS = [
   { name: "00 // IGNITION", href: "#hero" },
   { name: "01 // THE_BRIDGE", href: "#bridge" },
@@ -28,10 +28,19 @@ const NAV_LINKS = [
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [isHighPerf, setIsHighPerf] = useState(true);
   const [activeProject, setActiveProject] = useState("ive");
+  
+  // 1. HARDWARE AUTO-DETECTION (RTX 3050 vs Radeon 530)
+  const [isHighPerf, setIsHighPerf] = useHardwareDetection();
 
-  // Logic: High Perf = Dark Mode // Eco = Light Mode
+  // 2. SCROLL PROGRESS "FUEL GAUGE" LOGIC
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   useEffect(() => {
     if (isHighPerf) {
       document.documentElement.classList.add('dark');
@@ -41,29 +50,36 @@ export default function Home() {
   }, [isHighPerf]);
 
   return (
-    <main className="min-h-screen bg-[#F5F5F0] dark:bg-black transition-colors duration-700 selection:bg-red-600 selection:text-white overflow-x-hidden">
+    <main className="min-h-screen bg-[#F5F5F0] dark:bg-black transition-colors duration-700 selection:bg-red-600 selection:text-white">
+      {/* GLOBAL SCROLL PROGRESS BAR */}
+      <motion.div 
+        className="fixed top-0 left-0 right-0 h-1 bg-red-600 origin-left z-[1000]"
+        style={{ scaleX }}
+      />
+
       {isLoading ? (
         <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
       ) : (
         <>
           {isHighPerf && <FEAHeatmap />}
           
-          {/* FIXED NAVIGATION HUB - Typo Fixed & Z-Index Corrected */}
-          <div className="fixed top-8 right-8 z-[999] flex flex-col items-end gap-3">
+          {/* NAVIGATION INTERFACE */}
+          <div className="fixed top-8 right-8 z-[999] flex flex-col items-end gap-3 font-mono">
             <div className="flex items-center gap-3">
-              
+              {/* Performance Toggle */}
               <button 
                 onClick={() => setIsHighPerf(!isHighPerf)}
-                className={`relative flex items-center gap-3 px-6 py-2.5 rounded-full font-mono text-[9px] font-black tracking-[0.2em] transition-all duration-500 border ${
+                className={`relative flex items-center gap-3 px-6 py-2.5 rounded-full text-[9px] font-black tracking-[0.2em] transition-all duration-500 border ${
                   isHighPerf 
                   ? 'bg-zinc-900/80 backdrop-blur-xl border-red-600/50 text-white shadow-[0_0_20px_rgba(220,38,38,0.2)]' 
                   : 'bg-white/80 backdrop-blur-xl border-zinc-200 text-zinc-500 shadow-xl'
                 }`}
               >
                 <div className={`w-1.5 h-1.5 rounded-full ${isHighPerf ? 'bg-red-600 animate-pulse' : 'bg-zinc-300'}`} />
-                {isHighPerf ? "SYS: HIGH_PERF // DARK" : "SYS: ECO_MODE // LIGHT"}
+                {isHighPerf ? "MODE: SPORT // PERFORMANCE" : "MODE: ECO // STABILITY"}
               </button>
 
+              {/* Ignition Menu Button */}
               <div 
                 onClick={() => setIsNavOpen(!isNavOpen)}
                 className={`flex items-center backdrop-blur-2xl border rounded-full p-1.5 shadow-2xl cursor-pointer group transition-all duration-500 ${
@@ -71,7 +87,7 @@ export default function Home() {
                 }`}
               >
                 <div className="px-5 py-2 border-r border-zinc-800/20 dark:border-white/10">
-                  <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-[0.3em] font-black group-hover:text-red-600 transition-colors">
+                  <span className="text-[10px] text-zinc-500 uppercase tracking-[0.3em] font-black group-hover:text-red-600 transition-colors">
                     {isNavOpen ? "CLOSE" : "IGNITION"}
                   </span>
                 </div>
@@ -97,7 +113,7 @@ export default function Home() {
                         key={link.name} 
                         href={link.href}
                         onClick={() => setIsNavOpen(false)}
-                        className="font-mono text-[10px] text-zinc-500 hover:text-red-600 tracking-[0.2em] transition-all flex items-center gap-4 group"
+                        className="text-[10px] text-zinc-500 hover:text-red-600 tracking-[0.2em] transition-all flex items-center gap-4 group"
                       >
                         <span className="w-1 h-1 bg-zinc-800 group-hover:bg-red-600 transition-colors rotate-45" />
                         {link.name}
@@ -109,11 +125,14 @@ export default function Home() {
             </AnimatePresence>
           </div>
 
-          {/* MODULES - Wrappers removed to fix Sticky Lock and Dead Space */}
           <Hero />
           <Bridge />
-          <Garage onProjectSelect={(id) => {setActiveProject(id);}} />
-          <Workshop isHighPerf={isHighPerf} activeProjectId={activeProject} />
+          <Garage onProjectSelect={(id) => setActiveProject(id)} />
+          <Workshop 
+            isHighPerf={isHighPerf} 
+            setIsHighPerf={setIsHighPerf} 
+            activeProjectId={activeProject} 
+          />
           <Skills />
           <Logbook />
           <Terminal />

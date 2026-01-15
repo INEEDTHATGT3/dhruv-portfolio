@@ -1,69 +1,79 @@
 "use client";
 import { motion } from "framer-motion";
+import { Terminal as TerminalIcon, BookOpen, Activity, Target, ShieldCheck } from "lucide-react";
 
-const timeline = [
+const TELEMETRY_LOGS = [
   {
-    year: "2028",
-    title: "B.Tech Civil Engineering",
-    org: "HBTU Kanpur",
-    status: "EXPECTED",
-    details: ["Specializing in Structural Data Intelligence", "CGPA Target: 8.0+"]
+    timestamp: "2026 // CURRENT_PIPELINE",
+    event: "PROFESSIONAL_SCALING // DATA_SCIENCE",
+    details: "TARGETING: 450+ LeetCode/GFG problems // 8.5 CGPA Benchmark // Finalizing IVE & Personal OS Deployment // Awaiting Research Publication // Refining stack for professional data roles.",
+    type: "GOAL",
+    icon: Target
   },
   {
-    year: "2026",
-    title: "Data Science Specialization",
-    org: "Self-Directed / Projects",
-    status: "IN_PROGRESS",
-    details: [
-      "Implementing 10Hz Telemetry Pipelines (IVE Project)",
-      "Advanced DSA Grind (8-11 PM Daily)",
-      "Mastering YOLOv8 & Computer Vision"
-    ]
+    timestamp: "2025 // COMPETENCY_BUILD",
+    event: "SKILL_ACQUISITION // CERTIFICATION",
+    details: "COMPLETED: Kaggle & SolidWorks Certifications // Zerodha Technical & Fundamental Analysis Modules // 150+ LeetCode problems // 7.3 CGPA (Sem 01) // Research Paper Drafting complete // Documentation Mastery: Git, Kafka, Apache.",
+    type: "MILESTONE",
+    icon: ShieldCheck
   },
   {
-    year: "2024",
-    title: "Engineering Fundamentals",
-    org: "HBTU Kanpur",
-    status: "COMPLETED",
-    details: ["SolidWorks Mechanical Modeling", "Fluid Mechanics & Pressure Analysis"]
+    timestamp: "2024 // SYSTEM_IGNITION",
+    event: "ACADEMIC_ENROLLMENT // HBTU_KANPUR",
+    details: "Admitted to B.Tech Civil Engineering // Initiated Fundamental DSA Protocol // Cross-domain interest exploration (Civil x Data Intelligence).",
+    type: "INITIAL",
+    icon: BookOpen
   }
 ];
 
 export default function Logbook() {
+  const handleDownload = () => {
+    window.open('/manuals/SAMBHAV_JAISWAL_CURRENT_RESUME.pdf', '_blank');
+  };
+
   return (
-    <section id="resume" className="min-h-screen bg-white dark:bg-black py-32 px-10 font-mono transition-colors duration-700">
+    <section id="resume" className="min-h-screen bg-black py-32 px-6 font-mono">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-red-600 text-xs tracking-[0.5em] mb-20 uppercase font-black">Module_05 // Technical_Logbook</h2>
-        
-        <div className="relative border-l border-zinc-200 dark:border-zinc-800 ml-4 md:ml-20 space-y-20 pb-20">
-          {timeline.map((item, index) => (
-            <div key={index} className="relative pl-12 group">
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white dark:bg-black border-2 border-zinc-200 dark:border-zinc-800 group-hover:border-red-600 group-hover:scale-125 transition-all duration-500 z-10" />
-              
-              <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 mb-4">
-                <span className="text-red-600 font-black text-2xl italic tracking-tighter">{item.year}</span>
-                <span className="text-[10px] bg-zinc-100 dark:bg-zinc-900 px-2 py-1 text-zinc-500 dark:text-zinc-400 font-bold rounded uppercase">{item.status}</span>
+        <div className="mb-16 border-l-2 border-red-600 pl-6">
+          <h2 className="text-zinc-500 text-[10px] tracking-[0.5em] uppercase mb-2">Service_History // V.04</h2>
+          <h3 className="text-5xl font-black text-white tracking-tighter italic uppercase">Technical_Logbook</h3>
+        </div>
+
+        <div className="space-y-4">
+          {TELEMETRY_LOGS.map((log, index) => (
+            <motion.div 
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="group relative flex gap-6 p-6 border border-zinc-900 bg-zinc-950/30 hover:border-red-600/50 transition-all"
+            >
+              <div className="flex flex-col items-center">
+                <div className="p-3 bg-zinc-900 rounded-sm text-zinc-500 group-hover:bg-red-600/10 transition-colors">
+                  <log.icon size={18} />
+                </div>
+                <div className="w-px h-full bg-zinc-900 mt-4 group-hover:bg-red-600/20" />
               </div>
 
-              <h3 className="text-xl font-black text-zinc-900 dark:text-white mb-1 uppercase tracking-tight">{item.title}</h3>
-              <p className="text-zinc-500 dark:text-zinc-600 text-xs font-bold mb-6 italic">{item.org}</p>
-              
-              <ul className="space-y-3">
-                {item.details.map((detail, i) => (
-                  <li key={i} className="text-zinc-600 dark:text-zinc-400 text-sm flex items-start gap-3">
-                    <span className="mt-1.5 w-1.5 h-1.5 bg-red-600 rotate-45 shrink-0" />
-                    {detail}
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <div className="flex-1 pb-8">
+                <div className="flex justify-between items-start mb-2">
+                  <span className="text-red-600 text-[9px] font-black tracking-widest">[{log.timestamp}]</span>
+                  <span className="text-zinc-700 text-[8px] font-black border border-zinc-800 px-2 py-0.5 rounded-full">{log.type}</span>
+                </div>
+                <h4 className="text-white text-lg font-black tracking-tight mb-2 uppercase italic">{log.event}</h4>
+                <p className="text-zinc-500 text-xs leading-relaxed max-w-2xl uppercase tracking-tighter">{log.details}</p>
+              </div>
+            </motion.div>
           ))}
         </div>
 
         <div className="mt-20 flex justify-center">
-          <button className="border-2 border-zinc-900 dark:border-white px-10 py-4 font-black uppercase text-xs tracking-widest text-zinc-900 dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all flex items-center gap-4 group">
-            DOWNLOAD_FULL_SERVICE_MANUAL (PDF)
-            <span className="group-hover:translate-y-1 transition-transform">↓</span>
+          <button 
+            onClick={handleDownload}
+            className="group relative px-12 py-4 bg-zinc-900 border border-zinc-800 overflow-hidden transition-all hover:border-red-600"
+          >
+            <span className="relative z-10 text-white text-[10px] font-black tracking-[0.3em] uppercase">Download_Full_Service_Manual (PDF)</span>
+            <div className="absolute inset-0 bg-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
           </button>
         </div>
       </div>

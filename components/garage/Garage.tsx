@@ -10,6 +10,7 @@ interface Project {
   realWorldProblem: string;
   techImplementation: string;
   specs: { [key: string]: string };
+  manualPath: string;
 }
 
 const tunedProjects: Project[] = [
@@ -20,7 +21,8 @@ const tunedProjects: Project[] = [
     frontHighlights: ["10Hz Telemetry Ingestion", "YOLOv8 Perception", "DP Gear Optimization"],
     realWorldProblem: "Autonomous fleets generate massive data streams causing decision latency. This project ensures 100+ vehicles optimize performance in real-time.",
     techImplementation: "Built a Star Schema in PostGIS with Kafka-Spark streaming. Implemented Bellman Equation via DP to solve the Optimal Gear Shift Problem.",
-    specs: { latency: "10ms", freq: "10Hz", engine: "Kafka/Spark" }
+    specs: { latency: "10ms", freq: "10Hz", engine: "Kafka/Spark" },
+    manualPath: "/manuals/ive-draft.pdf"
   },
   {
     id: "infra",
@@ -29,7 +31,8 @@ const tunedProjects: Project[] = [
     frontHighlights: ["Structural Health Monitoring", "Survival Analysis", "Budget Optimization"],
     realWorldProblem: "Manual bridge inspections are slow. This platform predicts structural failure, allowing mathematical allocation of maintenance budgets.",
     techImplementation: "Used Cox Proportional Hazards for forecasting. Optimized budgets via 0/1 Knapsack DP and Dijkstra's algorithm for routing.",
-    specs: { data: "PostGIS", vision: "ResNet", algo: "Knapsack DP" }
+    specs: { data: "PostGIS", vision: "ResNet", algo: "Knapsack DP" },
+    manualPath: "/manuals/infra-draft.pdf"
   },
   {
     id: "neural",
@@ -38,7 +41,8 @@ const tunedProjects: Project[] = [
     frontHighlights: ["GCal Mimicry Grid", "Behavioral Triad Math", "Attendance CSP"],
     realWorldProblem: "Transitioning from Civil to Data Science requires extreme time auditing. This system mimics Google Calendar for 1-minute precision scheduling.",
     techImplementation: "Developed a 1440px grid (1px=1min) for scheduling. Modeled HBTU attendance as a CSP and implemented non-linear behavioral auditing.",
-    specs: { sync: "Supabase", frontend: "Flutter", logic: "CSP Solver" }
+    specs: { sync: "Supabase", frontend: "Flutter", logic: "CSP Solver" },
+    manualPath: "/manuals/personal_os-draftMode.pdf"
   },
   {
     id: "fintech",
@@ -47,7 +51,8 @@ const tunedProjects: Project[] = [
     frontHighlights: ["Llama 3.2 NLP Parsing", "Explainable AI (XAI)", "Monte Carlo Simulation"],
     realWorldProblem: "Traditional credit scoring is a 'black box'. This ecosystem provides transparent approvals and simulates 1,000+ market scenarios.",
     techImplementation: "Integrated local Llama 3.2 for parsing and XGBoost with SHAP for XAI. Utilized Monte Carlo and DP-based asset allocation.",
-    specs: { llm: "Llama 3.2", etl: "Airflow", storage: "DeltaLake" }
+    specs: { llm: "Llama 3.2", etl: "Airflow", storage: "DeltaLake" },
+    manualPath: "/manuals/fintech-draft.pdf"
   }
 ];
 
@@ -121,11 +126,13 @@ export default function Garage({ onProjectSelect }: { onProjectSelect: (id: stri
                     >
                       Enter_Laboratory →
                     </button>
-                    <button 
-                      className="flex-1 py-4 bg-transparent border border-zinc-200 dark:border-zinc-800 text-zinc-400 text-[10px] font-black uppercase tracking-widest hover:border-red-600 hover:text-red-600 transition-all"
-                    >
-                      Technical_Draft (PDF) ↓
-                    </button>
+                   <a 
+                    href={p.manualPath} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex-1 py-4 bg-transparent border border-zinc-200 dark:border-zinc-800 text-zinc-400 text-[10px] font-black uppercase tracking-widest hover:border-red-600 hover:text-red-600 transition-all text-center flex items-center justify-center">
+                    Technical_Draft (PDF) ↓
+                    </a>
                   </div>
                 </div>
               </motion.div>
