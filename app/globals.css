@@ -17,39 +17,44 @@
   --foreground: #ededed;
 }
 
+/* LENIS SMOOTH SCROLL REQUIRED CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 /* CUSTOM STEALTH SCROLLBAR */
 ::-webkit-scrollbar {
   width: 4px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
   background: #333;
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #ef4444; /* Redline Highlight */
-}
-
-/* SMOOTH SCROLL ACCELERATION */
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  background: #ef4444;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
-}
-
-/* INPUT AUTOFILL FIXES */
-input:-webkit-autofill,
-textarea:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 30px #000 inset !important;
-  -webkit-text-fill-color: white !important;
 }

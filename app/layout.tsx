@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ScrollProvider from "@/components/providers/ScrollProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,9 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SAMBHAV JAISWAL // Data Intelligence & Civil Engineering",
-  description: "Portfolio of Sambhav Jaiswal - Bridging Civil Engineering foundations with high-performance Data Science and AI.",
-  keywords: ["Sambhav Jaiswal", "Data Scientist", "Civil Engineering AI", "HBTU Kanpur", "Machine Learning Portfolio"],
+  title: "Dhruv Jaiswal // Data Intelligence & Civil Engineering",
+  description: "Portfolio of Dhruv Jaiswal - Bridging Civil Engineering foundations with high-performance Data Science and AI.",
 };
 
 export default function RootLayout({
@@ -24,9 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#F5F5F0] dark:bg-black transition-colors duration-500`}>
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <ScrollProvider>
+          {children}
+        </ScrollProvider>
       </body>
     </html>
   );

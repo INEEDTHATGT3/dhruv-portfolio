@@ -36,8 +36,8 @@ export default function Home() {
   // 2. SCROLL PROGRESS "FUEL GAUGE" LOGIC
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 50,   // Reduced from 100 for more "weight"
+    damping: 25,     // Adjusted for smoother lag-behind
     restDelta: 0.001
   });
 

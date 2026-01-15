@@ -121,11 +121,19 @@ export default function Garage({ onProjectSelect }: { onProjectSelect: (id: stri
 
                   <div className="mt-auto flex flex-col md:flex-row gap-4 pt-8">
                     <button 
-                      onClick={() => onProjectSelect(p.id)}
-                      className="flex-1 py-4 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest hover:bg-zinc-900 dark:hover:bg-white dark:hover:text-black transition-all"
-                    >
-                      Enter_Laboratory →
-                    </button>
+                    onClick={() => {
+                    // 1. Update the active project ID for the Workshop
+                    onProjectSelect(p.id);
+    
+                    // 2. Smoothly scroll the user to the Workshop section
+                    document.getElementById('workshop')?.scrollIntoView({ 
+                   behavior: 'smooth',
+                  block: 'start'
+                    });
+                  }}
+                  className="flex-1 py-4 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest hover:bg-zinc-900 dark:hover:bg-white dark:hover:text-black transition-all shadow-[0_0_20px_rgba(220,38,38,0.3)]">
+                  Enter_Laboratory →
+                  </button>
                    <a 
                     href={p.manualPath} 
                     target="_blank" 
