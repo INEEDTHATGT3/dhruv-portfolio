@@ -13,9 +13,9 @@ export default function Terminal() {
     e.preventDefault();
     setIsTransmitting(true);
 
-    const SERVICE_ID = 'service_zqw003r';
-    const PUBLIC_KEY = 'IbW544wxBIzxm1tbg';
-    const TEMPLATE_ID = 'template_h4tsst4'; 
+    const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+    const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+    const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;  
 
     // Logic to ensure email is sent as lowercase regardless of input display
     emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current!, PUBLIC_KEY)
