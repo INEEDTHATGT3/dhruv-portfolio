@@ -11,21 +11,26 @@ export default function ScrollProvider({ children }: ScrollProviderProps) {
     <ReactLenis 
       root 
       options={{ 
-        lerp: 0.05,        // Cinematic slow scroll
-        duration: 1.5,     
+        // LERP: Lowering this from 0.05 to 0.03 makes the scroll "heavier" and slower to catch up
+        lerp: 0.035,        
+        
+        // DURATION: Increased to 1.8s for a more cinematic transition
+        duration: 1.8,     
+        
         smoothWheel: true,
-        wheelMultiplier: 0.8, 
-        touchMultiplier: 2,
+        
+        // WHEEL MULTIPLIER: Lowered to 0.6 to reduce the distance covered per scroll click
+        wheelMultiplier: 0.6, 
+        
+        touchMultiplier: 1.5,
         infinite: false,
       }}
     >
       {/* 
-          TYPE_FIX: We cast 'children' to 'any' here because the Lenis library 
-          is expecting React 18 types, but your project is using React 19. 
-          This prevents the 'bigint' assignment error.
+          TYPE_FIX: Bypassing React 19 / Lenis type conflict 
+          Optimized for Acer Aspire 7 (RTX 3050) high-refresh display
       */}
       {children as any}
     </ReactLenis>
   );
 }
-
