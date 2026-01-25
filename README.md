@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏎️ DHRUV_PORTFOLIO_V.04 // THE_ENGINEERING_DOSSIER
 
-## Getting Started
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-success?style=flat-square&logo=vercel)](https://sambhavjaiswalportfolio.vercel.app/)
+[![Next.js Version](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![Hardware Target](https://img.shields.io/badge/Target-RTX_3050-red?style=flat-square)](https://www.nvidia.com/en-in/geforce/laptops/rtx-3050/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-First, run the development server:
+> **"Founded in Civil Engineering. Refined in Data Intelligence."**
+
+This is a hardware-aware technical portfolio built to showcase the transition from **Civil Engineering (HBTU Kanpur)** to **Advanced Data Science**. The project utilizes automotive engineering metaphors to visualize complex technical competencies and real-time telemetry.
+
+---
+
+## 🛠️ TECHNICAL_SPECIFICATIONS (ECU)
+
+| Component | Technology | Engineering Role |
+| :--- | :--- | :--- |
+| **Framework** | Next.js 15 (React 19) | High-Performance Engine |
+| **3D Engine** | React Three Fiber / Drei | Procedural Mechanical Lab |
+| **Physics** | Lenis + Framer Motion | Inertia-based Scroll Dynamics |
+| **Styling** | Tailwind CSS v4 | Responsive Chassis Design |
+| **Communication** | EmailJS | Secure Transmission Uplink |
+
+---
+
+## 🏗️ ARCHITECTURAL_MODULES
+
+### 01 // THE_BRIDGE (Cross-Disciplinary Mapping)
+A mathematical bridge translating Civil Engineering foundations into Data Science counterparts:
+- **Fluid Mechanics (NCE201)** ➔ **Kafka Stream Latency**
+- **Geotechnical Theory (NCE207)** ➔ **Gradient Descent Optimization**
+
+### 02 // THE_WORKSHOP (Hardware-Aware 3D)
+A procedural 3D environment that optimizes rendering based on the client's GPU.
+- **SPORT_MODE:** High-fidelity `meshPhysicalMaterial` and contact shadows for high-end GPUs (RTX 3050).
+- **ECO_MODE:** Static diagnostic views and wireframe fallbacks for low-power stability (Radeon 530 / Mobile).
+
+### 03 // PERFORMANCE_SPECS (Telemetry HUD)
+A Bento-Box dashboard featuring a **Radar-HUD** (SVG Polygon) for core competency visualization and a real-time **HBTU Academic Tracker** for Semester 04 monitoring.
+
+---
+
+## ⚙️ HARDWARE_AWARENESS_PROTOCOL
+
+The system utilizes a custom `useHardwareDetection` hook to analyze the **Unmasked Renderer** of the client's device. 
+- **Technical Challenge:** Resolved React 19 / Lenis peer dependency conflicts using `overrides` and `--legacy-peer-deps` installation protocols to maintain a stable 144Hz scroll experience.
+
+---
+
+## 🚀 INSTALLATION_&_IGNITION
 
 ```bash
+# Clone the repository
+git clone https://github.com/INEEDTHATGT3/dhruv-portfolio.git
+
+# Install dependencies with legacy peer support
+npm install --legacy-peer-deps
+
+# Start the development engine
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
