@@ -12,7 +12,7 @@
     "@emailjs/browser": "^4.4.1",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
-    "@studio-freight/react-lenis": "^0.0.47",
+    "lenis": "^0.0.47",
     "@types/three": "^0.182.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.25.0",
@@ -31,18 +31,18 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "webpack": "^5.104.1",
+    "webpack-cli": "^6.0.1"
   },
-    "overrides": {
-    "@studio-freight/react-lenis": {
+  "overrides": {
+    "lenis": {
       "react": "$react",
       "react-dom": "$react-dom"
     },
-    "@studio-freight/hamo": {
+    "hamo": {
       "react": "$react",
       "react-dom": "$react-dom"
     }
   }
 }
-
-
