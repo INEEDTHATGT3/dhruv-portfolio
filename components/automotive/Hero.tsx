@@ -9,12 +9,15 @@ export default function Hero() {
   return (
     <section className="relative h-screen w-full bg-[#F5F5F0] dark:bg-black overflow-hidden flex flex-col justify-center px-6 md:px-20 transition-colors duration-700">
       {/* Blueprint Grid - Only visible in Light Mode */}
-      <div className="absolute inset-0 opacity-[0.05] dark:opacity-0 pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:40px_40px]" />
-
       <div className="absolute top-10 left-10 font-mono text-[10px] text-zinc-400 dark:text-zinc-600 hidden md:block leading-relaxed">
-        LAT: 26.4499° N // LON: 80.3319° E <br />
-        HBTU_KANPUR_CIVIL // SEM_04
+      <div className="flex items-center gap-2 mb-1">
+      <div className="w-1 h-1 rounded-full bg-green-500 animate-pulse" />
+      <span className="text-zinc-300">SYSTEM_STABLE // REDLINE_READY</span>
       </div>
+      LAT: 26.4499° N , LON: 80.3319° E <br />
+      HBTU KANPUR CIVIL ENG., SEM 04
+      </div>
+
 
       <div className="z-10 max-w-4xl">
         <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} className="border-l-2 border-red-600 pl-6">

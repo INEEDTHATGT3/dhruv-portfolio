@@ -14,8 +14,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dhruv Jaiswal // Data Intelligence & Civil Engineering",
-  description: "Portfolio of Dhruv Jaiswal - Bridging Civil Engineering foundations with high-performance Data Science and AI.",
+  title: "Sambhav Jaiswal // Data Scientist & AI Specialist",
+  description: "Official Portfolio of Sambhav Jaiswal. Founded in Civil Engineering (HBTU), specializing in high-performance AI, Computer Vision, and Data Engineering.",
+  openGraph: {
+    title: "Sambhav Jaiswal // Technical Dossier",
+    description: "Bridging Civil Engineering with Data Intelligence.",
+    url: "https://sambhavjaiswalportfolio.vercel.app/",
+    siteName: "Sambhav Jaiswal Portfolio",
+    images: [
+      {
+        url: "/og-image.png", // You can create a screenshot of your hero section and name it this
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sambhav Jaiswal // Data Scientist",
+    description: "HBTU Civil Engineering | AI | Computer Vision | Data Engineering",
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +45,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-red-600 selection:text-white`}>
         <ScrollProvider>
           {children}
         </ScrollProvider>
