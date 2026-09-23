@@ -1,0 +1,145 @@
+[
+  {
+    "name": "dsa-lms",
+    "description": "Self-paced DSA curriculum as a React SPA - 19 modules x 4 difficulty tiers (76 lessons), spaced-repetition review, timed drills, and progress analytics, all client-side.",
+    "url": "https://github.com/INEEDTHATGT3/dsa-lms",
+    "homepage": "https://ineedthatgt3.github.io/dsa-lms/",
+    "language": "JavaScript",
+    "stars": 0,
+    "pushedAt": "2026-09-23T00:24:09Z",
+    "fork": false,
+    "archived": false
+  },
+  {
+    "name": "legal-logistics-platform",
+    "description": "Interactive prototype: lawyer discovery, consultations and document logistics in one flow. Static demo, no backend and no sign-in.",
+    "url": "https://github.com/INEEDTHATGT3/legal-logistics-platform",
+    "homepage": "https://ineedthatgt3.github.io/legal-logistics-platform/",
+    "language": "TypeScript",
+    "stars": 0,
+    "pushedAt": "2026-09-13T12:54:30Z",
+    "fork": false,
+    "archived": false
+  },
+  {
+    "name": "SQL-LMS",
+    "description": null,
+    "url": "https://github.com/INEEDTHATGT3/SQL-LMS",
+    "homepage": null,
+    "language": "HTML",
+    "stars": 0,
+    "pushedAt": "2026-09-13T02:48:17Z",
+    "fork": false,
+    "archived": false
+  },
+  {
+    "name": "greekg-assistant",
+    "description": "Offline, hotkey-driven Windows voice assistant — Whisper STT, local LLM (Ollama) grammar cleanup, voice app-launcher with fuzzy matching, \"Hey Jarvis\" wake word, and timestamped Word logging. All on-device.",
+    "url": "https://github.com/INEEDTHATGT3/greekg-assistant",
+    "homepage": null,
+    "language": "Python",
+    "stars": 0,
+    "pushedAt": "2026-09-13T02:27:26Z",
+    "fork": false,
+    "archived": false
+  },
+  {
+    "name": "INEEDTHATGT3",
+    "description": null,
+    "url": "https://github.com/INEEDTHATGT3/INEEDTHATGT3",
+    "homepage": null,
+    "language": null,
+    "stars": 0,
+    "pushedAt": "2026-09-09T03:42:05Z",
+    "fork": false,
+    "archived": false
+  },
+  {
+    "name": "data-structures-and-algorithms",
+    "description": "190+ C++ solutions to data structures & algorithms problems - arrays, strings, linked lists, trees, graphs, dynamic programming, topological sort.",
+    "url": "https://github.com/INEEDTHATGT3/data-structures-and-algorithms",
+    "homepage": null,
+    "language": "C++",
+    "stars": 0,
+    "pushedAt": "2026-09-09T03:40:34Z",
+    "fork": false,
+    "archived": false
+  },
+  {
+    "name": "highlight-notes-automation",
+    "description": "Crash-safe Windows automation that generates academic notes section-by-section — drives the Highlight AI desktop app via pywinauto and writes rich output into Word via COM, with checkpoint/resume.",
+    "url": "https://github.com/INEEDTHATGT3/highlight-notes-automation",
+    "homepage": null,
+    "language": "Python",
+    "stars": 0,
+    "pushedAt": "2026-09-09T01:59:12Z",
+    "fork": false,
+    "archived": false
+  },
+  {
+    "name": "ai-video-redub-pipeline",
+    "description": "Offline pipeline that re-dubs a video's narration and re-syncs the picture — faster-whisper STT, local LLM grammar cleanup (Ollama), XTTS/edge-tts voice synthesis, and ffmpeg freeze-frame re-timing.",
+    "url": "https://github.com/INEEDTHATGT3/ai-video-redub-pipeline",
+    "homepage": null,
+    "language": "Python",
+    "stars": 0,
+    "pushedAt": "2026-09-09T01:58:16Z",
+    "fork": false,
+    "archived": false
+  },
+  {
+    "name": "my-neural-space",
+    "description": "A cross-platform personal productivity ecosystem and neural-graph-based OS. Built with Flutter and Supabase to integrate DSA tracking, academic management, and automated scheduling with a cognitive mapping interface. Designed for high-performance data science workflow",
+    "url": "https://github.com/INEEDTHATGT3/my-neural-space",
+    "homepage": null,
+    "language": "Dart",
+    "stars": 0,
+    "pushedAt": "2026-08-26T13:25:21Z",
+    "fork": false,
+    "archived": false
+  },
+  {
+    "name": "python-learning-assignments",
+    "description": "Hands-on Generative AI and Python coursework — functions, OOP, exception handling, file I/O, and streaming, built up assignment by assignment.",
+    "url": "https://github.com/INEEDTHATGT3/python-learning-assignments",
+    "homepage": null,
+    "language": "Jupyter Notebook",
+    "stars": 0,
+    "pushedAt": "2026-07-24T11:40:05Z",
+    "fork": false,
+    "archived": false
+  },
+  {
+    "name": "algorithmic-trading-signal-predictor",
+    "description": "End-to-end ML pipeline that predicts high-probability trading signals from 60-minute OHLCV data across 15 NSE equities — multi-source ingestion, leakage-free feature engineering, and walk-forward-validated ensemble models.",
+    "url": "https://github.com/INEEDTHATGT3/algorithmic-trading-signal-predictor",
+    "homepage": null,
+    "language": "Jupyter Notebook",
+    "stars": 0,
+    "pushedAt": "2026-07-20T05:08:34Z",
+    "fork": false,
+    "archived": false
+  },
+  {
+    "name": "dhruv-portfolio",
+    "description": "Live Next.js 15 portfolio - an interactive 3D engineering dossier for the Civil Engineering to data/ML transition. React Three Fiber, Framer Motion, Tailwind v4, performance-tuned for laptop GPUs.",
+    "url": "https://github.com/INEEDTHATGT3/dhruv-portfolio",
+    "homepage": "https://sambhavjaiswalportfolio.vercel.app",
+    "language": "TypeScript",
+    "stars": 0,
+    "pushedAt": "2026-02-02T10:03:56Z",
+    "fork": false,
+    "archived": false
+  },
+  {
+    "name": "vehicle-performance-optimization",
+    "description": "End-to-End Vehicle Performance Optimization System. Connecting engineering data with driver behavior. Features: synthetic data generation, rigorous data cleaning, ML models for fuel efficiency & driving style, predictive maintenance, and custom DSA optimization. Author: Dhruv Jaiswal.",
+    "url": "https://github.com/INEEDTHATGT3/vehicle-performance-optimization",
+    "homepage": null,
+    "language": null,
+    "stars": 0,
+    "pushedAt": "2025-12-26T13:01:04Z",
+    "fork": false,
+    "archived": false
+  }
+]

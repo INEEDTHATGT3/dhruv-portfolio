@@ -1,0 +1,276 @@
+{
+  "updated": "2026-09-17",
+  "name": "Sambhav Jaiswal",
+  "location": "Noida, India",
+  "email": "jaiswaldhruv04@gmail.com",
+  "links": {
+    "linkedin": "https://linkedin.com/in/sambhav-jaiswal",
+    "github": "https://github.com/INEEDTHATGT3",
+    "kaggle": "https://www.kaggle.com/dhruvjaiswal04",
+    "codolio": "https://codolio.com/profile/DJ_THINKING"
+  },
+  "target": "Summer 2027",
+  "education": [
+    {
+      "school": "Harcourt Butler Technical University (HBTU)",
+      "degree": "Bachelor of Technology in Civil Engineering — CGPA: 7.05 / 10",
+      "dates": "Aug 2024 – May 2028",
+      "location": "Kanpur, India"
+    }
+  ],
+  "experience": [
+    {
+      "role": "AI Engineering Intern",
+      "org": "Kinetic Sage Technologies",
+      "dates": "Jun 2026 – Jul 2026",
+      "location": "Noida, India",
+      "bullets": [
+        "Built AI-powered backend services in Python, FastAPI and LLM APIs to automate business workflows.",
+        "Developed a RAG pipeline for document Q&A: ingestion, chunking, vector search and LLM response generation."
+      ]
+    },
+    {
+      "role": "GenAI Data Analytics Virtual Intern",
+      "org": "Tata Group (Forage)",
+      "dates": "May 2026",
+      "location": "Remote",
+      "bullets": [
+        "Executed exploratory data analysis on large-scale financial datasets using generative AI, identifying high-risk delinquency indicators with 100% data-integrity validation.",
+        "Designed a predictive-modeling framework and an agentic-AI collections strategy for stakeholder risk reports."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "algorithmic-trading-signal-predictor",
+      "name": "Algorithmic Trading Signal Predictor",
+      "stack": [
+        "Python",
+        "Scikit-Learn",
+        "Pandas",
+        "NumPy",
+        "SQLite",
+        "yfinance"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/INEEDTHATGT3/algorithmic-trading-signal-predictor"
+        }
+      ],
+      "bullets": [
+        "Built an end-to-end ML pipeline over 68,000+ rows of 60-minute OHLCV data for 15 NSE equities, ingesting CSV, JSON, SQLite and REST API sources.",
+        "Engineered 51 stationary features after removing leakage-prone columns, validated with walk-forward cross-validation and a 50-hour purge window.",
+        "Benchmarked 8 classifiers (Naive Bayes, Logistic Regression, k-NN, SVM-RBF, Decision Tree, Bagging, Random Forest, AdaBoost); tuned Bagging reached 91.2% test accuracy and Naive Bayes 0.99 recall."
+      ]
+    },
+    {
+      "id": "dsa-lms",
+      "name": "DSA Layered Study System",
+      "stack": [
+        "React 18",
+        "Vite 5",
+        "JavaScript",
+        "GitHub Actions"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/INEEDTHATGT3/dsa-lms"
+        },
+        {
+          "label": "Live",
+          "url": "https://ineedthatgt3.github.io/dsa-lms/"
+        }
+      ],
+      "bullets": [
+        "Zero-backend React SPA: 76-lesson, 19-module DSA curriculum at 4 tiers, dependency-gated module graph.",
+        "Spaced-repetition queues, mistake logs, timed interview drills and a client-side weakest-module radar.",
+        "GitHub Actions CI: schema-validated lesson JSON, ESLint 9, auto-deploy to GitHub Pages (MIT licensed)."
+      ]
+    },
+    {
+      "id": "ai-video-redub-pipeline",
+      "name": "AI Video Re-Dub Pipeline",
+      "stack": [
+        "Python",
+        "asyncio",
+        "faster-whisper",
+        "Ollama",
+        "XTTS v2",
+        "ffmpeg"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/INEEDTHATGT3/ai-video-redub-pipeline"
+        }
+      ],
+      "bullets": [
+        "Built an offline 7-stage video re-dubbing pipeline: ffmpeg extraction, faster-whisper STT, Llama 3 cleanup via Ollama, XTTS v2 speech with edge-tts fallback.",
+        "Freeze-frame segment rebuilds keep narration in sync; watchdog folder monitoring auto-triggers runs."
+      ]
+    },
+    {
+      "id": "greekg-assistant",
+      "name": "GreekG Assistant — Offline Voice Assistant",
+      "stack": [
+        "Python",
+        "faster-whisper",
+        "Ollama",
+        "openWakeWord"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/INEEDTHATGT3/greekg-assistant"
+        }
+      ],
+      "bullets": [
+        "Hotkey dictation on Windows: on-device faster-whisper STT, local-LLM cleanup, paste into the active app.",
+        "Wake-word trigger, fuzzy voice app launcher, Word logging and an OpenAI-compatible API fallback."
+      ]
+    },
+    {
+      "id": "dhruv-portfolio",
+      "name": "Hardware-Aware Portfolio",
+      "stack": [
+        "Next.js 15",
+        "React 19",
+        "React Three Fiber",
+        "Tailwind"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/INEEDTHATGT3/dhruv-portfolio"
+        },
+        {
+          "label": "Live",
+          "url": "https://sambhavjaiswalportfolio.vercel.app"
+        }
+      ],
+      "bullets": [
+        "Next.js 15 portfolio with React Three Fiber 3D scenes and Framer Motion scrolling, deployed on Vercel.",
+        "GPU-detection hook serving physically based materials on discrete GPUs, wireframe fallbacks on integrated ones."
+      ]
+    },
+    {
+      "id": "my-neural-space",
+      "name": "My Neural Space — Productivity OS",
+      "stack": [
+        "Flutter",
+        "Dart",
+        "Riverpod",
+        "Supabase",
+        "Calendar API"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/INEEDTHATGT3/my-neural-space"
+        }
+      ],
+      "bullets": [
+        "Flutter app for phone, tablet and laptop linking tasks, coursework and skills in a 2D/3D graph.",
+        "Real-time multi-device sync on Supabase (PostgreSQL), Riverpod state and Google Calendar REST integration."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "group": "Languages",
+      "items": [
+        "Python",
+        "C++",
+        "JavaScript",
+        "Dart",
+        "SQL"
+      ]
+    },
+    {
+      "group": "Machine Learning",
+      "items": [
+        "Scikit-Learn",
+        "Pandas",
+        "NumPy",
+        "PyTorch",
+        "Feature Engineering",
+        "Ensembles",
+        "Cross-Validation",
+        "EDA"
+      ]
+    },
+    {
+      "group": "NLP, LLMs & Vision",
+      "items": [
+        "LangChain",
+        "CrewAI",
+        "RAG",
+        "Vector Search",
+        "Prompt Engineering",
+        "Whisper",
+        "YOLOv8",
+        "OpenCV",
+        "Ollama",
+        "XTTS"
+      ]
+    },
+    {
+      "group": "Web & App",
+      "items": [
+        "React 18",
+        "React Router",
+        "Vite",
+        "Next.js",
+        "FastAPI",
+        "Flutter",
+        "Supabase",
+        "Streamlit",
+        "REST APIs",
+        "Tailwind",
+        "Riverpod"
+      ]
+    },
+    {
+      "group": "Tools & Foundations",
+      "items": [
+        "Git",
+        "GitHub Actions (CI/CD)",
+        "Docker",
+        "Jupyter",
+        "asyncio",
+        "DSA",
+        "OOP",
+        "ffmpeg",
+        "Vercel",
+        "GitHub Pages"
+      ]
+    }
+  ],
+  "positions": [
+    {
+      "title": "Technical Associate, ACE HBTU",
+      "detail": "surveying & computation workshops, 50+ students",
+      "dates": "Aug 2025 – Dec 2025"
+    },
+    {
+      "title": "Associate, Callidus Community",
+      "detail": "coordinated Youth Parliament, Debathons & Mock Trial",
+      "dates": "Aug 2025 – Present"
+    },
+    {
+      "title": "Associate, Cultural SubCouncil",
+      "detail": "sponsorship outreach for annual cultural fest, Adhyaay",
+      "dates": "2025 – 2026"
+    }
+  ],
+  "certifications": [
+    "Kaggle (Machine Learning, Time Series, Deep Learning)",
+    "Generative AI End-to-End (TuteDude)"
+  ],
+  "achievements": [
+    "Solved 210+ DSA problems, LeetCode and GFG (Codolio)",
+    "Authored a 76-lesson open-source DSA curriculum"
+  ]
+}

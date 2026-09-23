@@ -1,55 +1,32 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import resume from "@/content/resume.json";
+import { site } from "@/content/site";
+import { availability, roleLine } from "@/lib/profile";
 import "./globals.css";
-import ScrollProvider from "@/components/providers/ScrollProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo" });
+const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono" });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const title = `${resume.name} — ${site.role}`;
+const latest = resume.experience[0];
+const description = `${site.pitch} ${latest ? `${roleLine(latest)}. ` : ""}${availability}.`;
 
 export const metadata: Metadata = {
-  title: "Sambhav Jaiswal // Data Scientist & AI Specialist",
-  description: "Official Portfolio of Sambhav Jaiswal. Founded in Civil Engineering (HBTU), specializing in high-performance AI, Computer Vision, and Data Engineering.",
-  openGraph: {
-    title: "Sambhav Jaiswal // Technical Dossier",
-    description: "Bridging Civil Engineering with Data Intelligence.",
-    url: "https://sambhavjaiswalportfolio.vercel.app/",
-    siteName: "Sambhav Jaiswal Portfolio",
-    images: [
-      {
-        url: "/og-image.png", // You can create a screenshot of your hero section and name it this
-        width: 1200,
-        height: 630,
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Sambhav Jaiswal // Data Scientist",
-    description: "HBTU Civil Engineering | AI | Computer Vision | Data Engineering",
-  },
+  metadataBase: new URL(site.url),
+  title,
+  description,
+  alternates: { canonical: "/" },
+  openGraph: { type: "profile", url: "/", siteName: resume.name, title, description, locale: "en_IN" },
+  twitter: { card: "summary_large_image", title, description },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const viewport: Viewport = { themeColor: "#f4f5f6" };
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-red-600 selection:text-white`}>
-        <ScrollProvider>
-          {children}
-        </ScrollProvider>
-      </body>
+    <html lang="en" className={`${archivo.variable} ${plexMono.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

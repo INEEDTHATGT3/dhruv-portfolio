@@ -1,44 +1,32 @@
 {
   "name": "dhruv-portfolio",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --test",
+    "sync": "node scripts/sync-resume.mjs"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.5.0",
-    "lenis": "^1.1.20",
-    "@types/three": "^0.182.0",
-    "clsx": "^2.1.1",
-    "framer-motion": "^12.25.0",
+    "@react-three/fiber": "^9.8.0",
     "lucide-react": "^0.562.0",
-    "next": "16.1.1",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "tailwind-merge": "^3.4.0",
-    "three": "^0.182.0"
+    "next": "16.3.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "three": "^0.186.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.186.0",
     "eslint": "^9",
-    "eslint-config-next": "16.1.1",
+    "eslint-config-next": "16.3.6",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "webpack": "^5.104.1",
-    "webpack-cli": "^6.0.1"
-  },
-  "overrides": {
-    "lenis": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    }
+    "typescript": "^5"
   }
 }

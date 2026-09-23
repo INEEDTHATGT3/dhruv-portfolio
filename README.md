@@ -1,60 +1,36 @@
-# 🏎️ DHRUV_PORTFOLIO_V.04 // THE_ENGINEERING_DOSSIER
+# Sambhav Jaiswal — portfolio
 
-[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-success?style=flat-square&logo=vercel)](https://sambhavjaiswalportfolio.vercel.app/)
-[![Next.js Version](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![Hardware Target](https://img.shields.io/badge/Target-RTX_3050-red?style=flat-square)](https://www.nvidia.com/en-in/geforce/laptops/rtx-3050/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+**Live:** https://sambhavjaiswalportfolio.vercel.app
 
-> **"Founded in Civil Engineering. Refined in Data Intelligence."**
+A one-page portfolio that keeps itself current: the LaTeX résumé is the single source of truth, GitHub fills in the rest, and nothing on the page is typed twice.
 
-This is a hardware-aware technical portfolio built to showcase the transition from **Civil Engineering (HBTU Kanpur)** to **Advanced Data Science**. The project utilizes automotive engineering metaphors to visualize complex technical competencies and real-time telemetry.
+## How it stays up to date
 
----
+| Source | Feeds | Refresh |
+| --- | --- | --- |
+| `RESUME_ROLES.tex` (all role tracks) | experience, projects, skills, education, leadership, links → `content/resume.json`; `SAMBHAV_CV_GEN.pdf` → `public/resume.pdf` | `npm run sync`, run weekly by a scheduled task |
+| GitHub API | "Also on GitHub", last-push dates, repo count | live, re-fetched every 6 hours (ISR); falls back to `content/github.json` |
+| `content/site.ts` | pitch, "What I bring", project summaries and key figures, display order | by hand |
 
-## 🛠️ TECHNICAL_SPECIFICATIONS (ECU)
+- A new résumé project appears on its own with its résumé bullets; add a `summary` and `specs` in `content/site.ts` to polish it.
+- A new public repo with code and a description appears under "Also on GitHub" within 6 hours, no deploy needed.
+- `npm run sync` only rewrites files whose content changed, and refuses to write if the résumé parses into something broken (missing name, email or sections).
 
-| Component | Technology | Engineering Role |
-| :--- | :--- | :--- |
-| **Framework** | Next.js 15 (React 19) | High-Performance Engine |
-| **3D Engine** | React Three Fiber / Drei | Procedural Mechanical Lab |
-| **Physics** | Lenis + Framer Motion | Inertia-based Scroll Dynamics |
-| **Styling** | Tailwind CSS v4 | Responsive Chassis Design |
-| **Communication** | EmailJS | Secure Transmission Uplink |
-
----
-
-## 🏗️ ARCHITECTURAL_MODULES
-
-### 01 // THE_BRIDGE (Cross-Disciplinary Mapping)
-A mathematical bridge translating Civil Engineering foundations into Data Science counterparts:
-- **Fluid Mechanics (NCE201)** ➔ **Kafka Stream Latency**
-- **Geotechnical Theory (NCE207)** ➔ **Gradient Descent Optimization**
-
-### 02 // THE_WORKSHOP (Hardware-Aware 3D)
-A procedural 3D environment that optimizes rendering based on the client's GPU.
-- **SPORT_MODE:** High-fidelity `meshPhysicalMaterial` and contact shadows for high-end GPUs (RTX 3050).
-- **ECO_MODE:** Static diagnostic views and wireframe fallbacks for low-power stability (Radeon 530 / Mobile).
-
-### 03 // PERFORMANCE_SPECS (Telemetry HUD)
-A Bento-Box dashboard featuring a **Radar-HUD** (SVG Polygon) for core competency visualization and a real-time **HBTU Academic Tracker** for Semester 04 monitoring.
-
----
-
-## ⚙️ HARDWARE_AWARENESS_PROTOCOL
-
-The system utilizes a custom `useHardwareDetection` hook to analyze the **Unmasked Renderer** of the client's device. 
-- **Technical Challenge:** Resolved React 19 / Lenis peer dependency conflicts using `overrides` and `--legacy-peer-deps` installation protocols to maintain a stable 144Hz scroll experience.
-
----
-
-## 🚀 INSTALLATION_&_IGNITION
+## Commands
 
 ```bash
-# Clone the repository
-git clone https://github.com/INEEDTHATGT3/dhruv-portfolio.git
+npm install
+npm run dev                         # http://localhost:3000
+npm run sync -- "path/to/RESUME"    # résumé folder; defaults to $RESUME_DIR, then the Google Drive folder
+npm test                            # résumé parser tests
+npm run build
+```
 
-# Install dependencies with legacy peer support
-npm install --legacy-peer-deps
+Optional: set `GITHUB_TOKEN` (a fine-grained token with no scopes is enough) in Vercel to avoid GitHub's 60-requests-per-hour limit for unauthenticated calls.
 
-# Start the development engine
-npm run dev
+## Under the hood
+
+- **Next.js 16 app router, one server-rendered page** with incremental static regeneration; only the 3D view and the copy button ship client JavaScript.
+- **Hardware-aware 3D:** a procedural turbocharger compressor wheel (parametric blades, lathe hub) in React Three Fiber. Discrete GPUs and Apple silicon get PBR materials with a procedural studio environment; integrated GPUs get a hidden-line CAD drawing; phones skip three.js entirely. It spools up with scroll speed, pauses off-screen and stays still for `prefers-reduced-motion`.
+- **Résumé parser** (`scripts/sync-resume.mjs`): a small brace-matching LaTeX reader that merges the GEN, AI, ML and SWE tracks, keeps the most detailed wording of each project and folds overlapping skill groups.
+- Generated Open Graph image, sitemap, robots and JSON-LD `Person` data for search and link previews.
