@@ -1,0 +1,57 @@
+name: Sync résumé and GitHub
+
+# Pulls the LaTeX résumé from Google Drive, regenerates content/*.json and public/resume.pdf,
+# and pushes only when something changed and tests + build pass. Vercel deploys the push.
+on:
+  schedule:
+    - cron: "30 1 * * *" # daily, 07:00 IST
+  workflow_dispatch: # "Run workflow" button on the Actions tab
+  repository_dispatch: # POST /repos/INEEDTHATGT3/dhruv-portfolio/dispatches {"event_type":"resume-updated"}
+    types: [resume-updated]
+
+permissions:
+  contents: write
+
+concurrency: sync
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      # Drive: INTERNSHIP AND MORE APPLICATION BASED HELPER AGENT/RESUME, shared "Anyone with the link: Viewer".
+      RESUME_TEX_ID: 1X4fDsNPnEu3yROJ18WRxc7w8ZZKLl_zH
+      RESUME_PDF_ID: 1wt3rhBWBHGBwfiXYNBLV2RUW2DyjAgo_
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Download résumé from Google Drive
+        run: |
+          mkdir -p resume
+          get() { curl -fsSL "https://drive.usercontent.google.com/download?id=$1&export=download" -o "resume/$2"; }
+          get "$RESUME_TEX_ID" RESUME_ROLES.tex
+          get "$RESUME_PDF_ID" SAMBHAV_CV_GEN.pdf
+          # A private file comes back as an HTML sign-in page; fail loudly instead of syncing it.
+          grep -q '\\documentclass' resume/RESUME_ROLES.tex || { echo "::error::RESUME_ROLES.tex is not shared by link"; exit 1; }
+          head -c 4 resume/SAMBHAV_CV_GEN.pdf | grep -q '%PDF' || { echo "::error::SAMBHAV_CV_GEN.pdf is not shared by link"; exit 1; }
+
+      - run: npm run sync -- resume
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: diff
+        run: git diff --quiet && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - if: steps.diff.outputs.changed == 'true'
+        run: npm test && npm run lint && npm run build
+
+      - if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore(content): sync résumé and GitHub snapshot"
+          git push

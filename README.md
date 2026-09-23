@@ -8,7 +8,7 @@ A one-page portfolio that keeps itself current: the LaTeX résumé is the single
 
 | Source | Feeds | Refresh |
 | --- | --- | --- |
-| `RESUME_ROLES.tex` (all role tracks) | experience, projects, skills, education, leadership, links → `content/resume.json`; `SAMBHAV_CV_GEN.pdf` → `public/resume.pdf` | `npm run sync`, run weekly by a scheduled task |
+| `RESUME_ROLES.tex` (all role tracks) | experience, projects, skills, education, leadership, links → `content/resume.json`; `SAMBHAV_CV_GEN.pdf` → `public/resume.pdf` | daily GitHub Action ([`sync.yml`](.github/workflows/sync.yml)), or `npm run sync` locally |
 | GitHub API | "Also on GitHub", last-push dates, repo count | live, re-fetched every 6 hours (ISR); falls back to `content/github.json` |
 | `content/site.ts` | pitch, "What I bring", project summaries and key figures, display order | by hand |
 
@@ -25,6 +25,11 @@ npm run sync -- "path/to/RESUME"    # résumé folder; defaults to $RESUME_DIR, 
 npm test                            # résumé parser tests
 npm run build
 ```
+
+## Automation
+
+- **`sync.yml` (GitHub Actions, daily 07:00 IST, or "Run workflow" on the Actions tab):** downloads the two résumé files from Google Drive (shared as "Anyone with the link: Viewer"), runs the sync, and commits only if something changed and tests, lint and build pass. Vercel deploys the commit. If a file stops being link-shared the run fails and GitHub emails you. GitHub pauses scheduled workflows after 60 days without commits; re-enable it from the Actions tab.
+- **Gemini Spark (optional, read-only):** a weekly task that compares the Drive résumé with the live site, lists repos missing descriptions, drafts `summary`/`specs` entries for new projects from résumé facts, and emails a digest.
 
 Optional: set `GITHUB_TOKEN` (a fine-grained token with no scopes is enough) in Vercel to avoid GitHub's 60-requests-per-hour limit for unauthenticated calls.
 
