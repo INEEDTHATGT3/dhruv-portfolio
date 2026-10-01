@@ -16,12 +16,12 @@
     "check": "npm run lint && npm run typecheck && npm test && npm run build"
   },
   "dependencies": {
-    "@react-three/fiber": "^9.8.0",
-    "lucide-react": "^0.562.0",
+    "@react-three/fiber": "^9.8.1",
+    "lucide-react": "^0.577.0",
     "next": "16.3.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "three": "^0.186.0"
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
