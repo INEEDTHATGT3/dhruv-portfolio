@@ -1,5 +1,16 @@
 [
   {
+    "name": "dhruv-portfolio",
+    "description": "Live Next.js 15 portfolio - an interactive 3D engineering dossier for the Civil Engineering to data/ML transition. React Three Fiber, Framer Motion, Tailwind v4, performance-tuned for laptop GPUs.",
+    "url": "https://github.com/INEEDTHATGT3/dhruv-portfolio",
+    "homepage": "https://sambhavjaiswalportfolio.vercel.app",
+    "language": "TypeScript",
+    "stars": 0,
+    "pushedAt": "2026-10-01T10:26:23Z",
+    "fork": false,
+    "archived": false
+  },
+  {
     "name": "dsa-lms",
     "description": "Self-paced DSA curriculum as a React SPA - 19 modules x 4 difficulty tiers (76 lessons), spaced-repetition review, timed drills, and progress analytics, all client-side.",
     "url": "https://github.com/INEEDTHATGT3/dsa-lms",
@@ -128,17 +139,6 @@
     "language": "Jupyter Notebook",
     "stars": 0,
     "pushedAt": "2026-07-20T05:08:34Z",
-    "fork": false,
-    "archived": false
-  },
-  {
-    "name": "dhruv-portfolio",
-    "description": "Live Next.js 15 portfolio - an interactive 3D engineering dossier for the Civil Engineering to data/ML transition. React Three Fiber, Framer Motion, Tailwind v4, performance-tuned for laptop GPUs.",
-    "url": "https://github.com/INEEDTHATGT3/dhruv-portfolio",
-    "homepage": "https://sambhavjaiswalportfolio.vercel.app",
-    "language": "TypeScript",
-    "stars": 0,
-    "pushedAt": "2026-02-02T10:03:56Z",
     "fork": false,
     "archived": false
   },
