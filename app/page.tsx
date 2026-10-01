@@ -70,6 +70,13 @@ export default async function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
+      <a
+        href="#top"
+        className="sr-only z-50 rounded bg-ink px-4 py-2 text-paper focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+      >
+        Skip to content
+      </a>
+
       <header className="sticky top-0 z-30 border-b border-rule bg-paper/85 backdrop-blur-md">
         <div className="shell flex h-14 items-center justify-between gap-4">
           <a href="#top" className="wide text-[0.8rem] font-extrabold tracking-[0.08em] uppercase">

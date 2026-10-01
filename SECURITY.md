@@ -1,21 +1,20 @@
-# Security Policy
+# Security policy
 
-## Supported Versions
+This repository is a personal portfolio site. Only the latest commit on `master`, which is what
+https://sambhavjaiswalportfolio.vercel.app serves, is supported.
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+## Reporting a vulnerability
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+Please report security issues privately, not in a public issue:
 
-## Reporting a Vulnerability
+- GitHub: **Security → Report a vulnerability** on this repository (private advisory), or
+- email **jaiswaldhruv04@gmail.com** with "security" in the subject.
 
-Use this section to tell people how to report a vulnerability.
+Include the URL or file affected, steps to reproduce, and the impact you expect. You should get a
+reply within 7 days. Confirmed issues are fixed on `master` and credited in the commit message
+unless you ask otherwise.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+## Scope
+
+In scope: this site's code, its HTTP headers, and the GitHub Actions workflows in `.github/`.
+Out of scope: third-party services the site links to (GitHub, LinkedIn, Kaggle, Google Drive, Vercel).

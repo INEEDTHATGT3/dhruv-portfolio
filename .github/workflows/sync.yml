@@ -11,12 +11,14 @@ on:
 
 permissions:
   contents: write
+  actions: write # lets the keep-alive step re-enable this schedule
 
 concurrency: sync
 
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       # Drive: INTERNSHIP AND MORE APPLICATION BASED HELPER AGENT/RESUME, shared "Anyone with the link: Viewer".
       RESUME_TEX_ID: 1X4fDsNPnEu3yROJ18WRxc7w8ZZKLl_zH
@@ -25,14 +27,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
       - run: npm ci
 
       - name: Download résumé from Google Drive
         run: |
           mkdir -p resume
-          get() { curl -fsSL "https://drive.usercontent.google.com/download?id=$1&export=download" -o "resume/$2"; }
+          get() { curl -fsSL --retry 3 --retry-all-errors "https://drive.usercontent.google.com/download?id=$1&export=download" -o "resume/$2"; }
           get "$RESUME_TEX_ID" RESUME_ROLES.tex
           get "$RESUME_PDF_ID" SAMBHAV_CV_GEN.pdf
           # A private file comes back as an HTML sign-in page; fail loudly instead of syncing it.
@@ -44,7 +46,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - id: diff
-        run: git diff --quiet && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
+        run: |
+          git add content public/resume.pdf
+          git diff --cached --quiet && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - if: steps.diff.outputs.changed == 'true'
         run: npm test && npm run lint && npm run build
@@ -53,5 +57,23 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "chore(content): sync résumé and GitHub snapshot"
+          git commit -m "chore(content): sync résumé and GitHub snapshot"
+          git pull --rebase --autostash
           git push
+
+      # GitHub disables scheduled workflows after 60 days without repository activity, and this job
+      # only commits when the résumé changes. Re-enabling an enabled workflow is a no-op.
+      - name: Keep the daily schedule alive
+        if: github.event_name == 'schedule'
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/sync.yml/enable"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### Résumé sync"
+            echo "- Changed: ${{ steps.diff.outputs.changed || 'n/a' }}"
+            echo "- Trigger: ${{ github.event_name }}"
+          } >> "$GITHUB_STEP_SUMMARY"

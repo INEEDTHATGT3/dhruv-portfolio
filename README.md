@@ -1,5 +1,8 @@
 # Sambhav Jaiswal — portfolio
 
+[![CI](https://github.com/INEEDTHATGT3/dhruv-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/INEEDTHATGT3/dhruv-portfolio/actions/workflows/ci.yml)
+[![Résumé sync](https://github.com/INEEDTHATGT3/dhruv-portfolio/actions/workflows/sync.yml/badge.svg)](https://github.com/INEEDTHATGT3/dhruv-portfolio/actions/workflows/sync.yml)
+
 **Live:** https://sambhavjaiswalportfolio.vercel.app
 
 A one-page portfolio that keeps itself current: the LaTeX résumé is the single source of truth, GitHub fills in the rest, and nothing on the page is typed twice.
@@ -19,16 +22,18 @@ A one-page portfolio that keeps itself current: the LaTeX résumé is the single
 ## Commands
 
 ```bash
-npm install
+npm ci                              # Node 22 (see .nvmrc); Node >= 20.9 works
 npm run dev                         # http://localhost:3000
 npm run sync -- "path/to/RESUME"    # résumé folder; defaults to $RESUME_DIR, then the Google Drive folder
-npm test                            # résumé parser tests
-npm run build
+npm test                            # résumé parser + committed-content tests
+npm run check                       # lint, typecheck, tests and build: what CI runs
 ```
 
 ## Automation
 
-- **`sync.yml` (GitHub Actions, daily 07:00 IST, or "Run workflow" on the Actions tab):** downloads the two résumé files from Google Drive (shared as "Anyone with the link: Viewer"), runs the sync, and commits only if something changed and tests, lint and build pass. Vercel deploys the commit. If a file stops being link-shared the run fails and GitHub emails you. GitHub pauses scheduled workflows after 60 days without commits; re-enable it from the Actions tab.
+- **`sync.yml` (GitHub Actions, daily 07:00 IST, or "Run workflow" on the Actions tab):** downloads the two résumé files from Google Drive (shared as "Anyone with the link: Viewer"), runs the sync, and commits only if something changed and tests, lint and build pass. Vercel deploys the commit. If a file stops being link-shared the run fails and GitHub emails you. Each scheduled run also re-enables itself, so GitHub's 60-day inactivity pause doesn't silently stop it.
+- **`ci.yml`:** lint, typecheck, tests and build on every push and pull request.
+- **Dependabot:** one grouped pull request a week for minor and patch updates (majors by hand, since `next` and `eslint-config-next` move together), plus monthly GitHub Actions updates.
 - **Gemini Spark (optional, read-only):** a weekly task that compares the Drive résumé with the live site, lists repos missing descriptions, drafts `summary`/`specs` entries for new projects from résumé facts, and emails a digest.
 
 Optional: set `GITHUB_TOKEN` (a fine-grained token with no scopes is enough) in Vercel to avoid GitHub's 60-requests-per-hour limit for unauthenticated calls.
@@ -39,3 +44,4 @@ Optional: set `GITHUB_TOKEN` (a fine-grained token with no scopes is enough) in 
 - **Hardware-aware 3D:** a procedural turbocharger compressor wheel (parametric blades, lathe hub) in React Three Fiber. Discrete GPUs and Apple silicon get PBR materials with a procedural studio environment; integrated GPUs get a hidden-line CAD drawing; phones skip three.js entirely. It spools up with scroll speed, pauses off-screen and stays still for `prefers-reduced-motion`.
 - **Résumé parser** (`scripts/sync-resume.mjs`): a small brace-matching LaTeX reader that merges the GEN, AI, ML and SWE tracks, keeps the most detailed wording of each project and folds overlapping skill groups.
 - Generated Open Graph image, sitemap, robots and JSON-LD `Person` data for search and link previews.
+- Security headers (HSTS, `nosniff`, frame denial, referrer and permissions policies) set in `next.config.ts`, so they apply locally and on Vercel.

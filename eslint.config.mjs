@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local-only folders: agent worktrees (each with its own .next build) and downloaded résumés.
+    ".claude/**",
+    "resume/**",
   ]),
 ]);
 
