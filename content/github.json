@@ -1,12 +1,12 @@
 [
   {
     "name": "dhruv-portfolio",
-    "description": "Live Next.js 15 portfolio - an interactive 3D engineering dossier for the Civil Engineering to data/ML transition. React Three Fiber, Framer Motion, Tailwind v4, performance-tuned for laptop GPUs.",
+    "description": "Self-updating portfolio: Next.js 16, LaTeX résumé → JSON sync, live GitHub feed (ISR), hardware-aware React Three Fiber turbo.",
     "url": "https://github.com/INEEDTHATGT3/dhruv-portfolio",
     "homepage": "https://sambhavjaiswalportfolio.vercel.app",
     "language": "TypeScript",
     "stars": 0,
-    "pushedAt": "2026-10-01T10:26:23Z",
+    "pushedAt": "2026-10-01T10:28:28Z",
     "fork": false,
     "archived": false
   },
