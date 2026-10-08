@@ -1,5 +1,16 @@
 [
   {
+    "name": "dhruv-portfolio",
+    "description": "Self-updating portfolio: Next.js 16, LaTeX résumé → JSON sync, live GitHub feed (ISR), hardware-aware React Three Fiber turbo.",
+    "url": "https://github.com/INEEDTHATGT3/dhruv-portfolio",
+    "homepage": "https://sambhavjaiswalportfolio.vercel.app",
+    "language": "TypeScript",
+    "stars": 0,
+    "pushedAt": "2026-10-07T07:35:55Z",
+    "fork": false,
+    "archived": false
+  },
+  {
     "name": "dsa-lms",
     "description": "Self-paced DSA curriculum as a React SPA - 19 modules x 4 difficulty tiers (76 lessons), spaced-repetition review, timed drills, and progress analytics, all client-side.",
     "url": "https://github.com/INEEDTHATGT3/dsa-lms",
@@ -7,17 +18,6 @@
     "language": "JavaScript",
     "stars": 0,
     "pushedAt": "2026-10-07T01:19:20Z",
-    "fork": false,
-    "archived": false
-  },
-  {
-    "name": "dhruv-portfolio",
-    "description": "Self-updating portfolio: Next.js 16, LaTeX résumé → JSON sync, live GitHub feed (ISR), hardware-aware React Three Fiber turbo.",
-    "url": "https://github.com/INEEDTHATGT3/dhruv-portfolio",
-    "homepage": "https://sambhavjaiswalportfolio.vercel.app",
-    "language": "TypeScript",
-    "stars": 0,
-    "pushedAt": "2026-10-06T07:58:23Z",
     "fork": false,
     "archived": false
   },
