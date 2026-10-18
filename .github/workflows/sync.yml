@@ -24,7 +24,7 @@ jobs:
       RESUME_TEX_ID: 1X4fDsNPnEu3yROJ18WRxc7w8ZZKLl_zH
       RESUME_PDF_ID: 1wt3rhBWBHGBwfiXYNBLV2RUW2DyjAgo_
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
