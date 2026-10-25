@@ -1,12 +1,23 @@
 [
   {
+    "name": "content-based-recommender",
+    "description": "Assignment 20: content-based company recommender (TF-IDF + cosine similarity) with a Streamlit app deployed on Render",
+    "url": "https://github.com/INEEDTHATGT3/content-based-recommender",
+    "homepage": null,
+    "language": "Jupyter Notebook",
+    "stars": 0,
+    "pushedAt": "2026-10-24T07:06:29Z",
+    "fork": false,
+    "archived": false
+  },
+  {
     "name": "dhruv-portfolio",
     "description": "Self-updating portfolio: Next.js 16, LaTeX résumé → JSON sync, live GitHub feed (ISR), hardware-aware React Three Fiber turbo.",
     "url": "https://github.com/INEEDTHATGT3/dhruv-portfolio",
     "homepage": "https://sambhavjaiswalportfolio.vercel.app",
     "language": "TypeScript",
     "stars": 0,
-    "pushedAt": "2026-10-23T06:22:43Z",
+    "pushedAt": "2026-10-24T06:18:02Z",
     "fork": false,
     "archived": false
   },

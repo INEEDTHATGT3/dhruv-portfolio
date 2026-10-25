@@ -1,13 +1,13 @@
 {
-  "updated": "2026-09-17",
+  "updated": "2026-10-25",
   "name": "Sambhav Jaiswal",
   "location": "Noida, India",
   "email": "jaiswaldhruv04@gmail.com",
   "links": {
+    "codolio": "https://codolio.com/profile/DJ_THINKING",
     "linkedin": "https://linkedin.com/in/sambhav-jaiswal",
     "github": "https://github.com/INEEDTHATGT3",
-    "kaggle": "https://www.kaggle.com/dhruvjaiswal04",
-    "codolio": "https://codolio.com/profile/DJ_THINKING"
+    "kaggle": "https://www.kaggle.com/dhruvjaiswal04"
   },
   "target": "Summer 2027",
   "education": [
@@ -250,6 +250,11 @@
   ],
   "positions": [
     {
+      "title": "Training & Placement Outreach Team (Civil)",
+      "detail": "recruiter outreach, placement brochure",
+      "dates": "2026 – Present"
+    },
+    {
       "title": "Technical Associate, ACE HBTU",
       "detail": "surveying & computation workshops, 50+ students",
       "dates": "Aug 2025 – Dec 2025"
@@ -270,7 +275,7 @@
     "Generative AI End-to-End (TuteDude)"
   ],
   "achievements": [
-    "Solved 210+ DSA problems, LeetCode and GFG (Codolio)",
-    "Authored a 76-lesson open-source DSA curriculum"
+    "210+ DSA problems on LeetCode and GFG (Codolio)",
+    "Author of a 76-lesson open-source DSA course"
   ]
 }
