@@ -1,12 +1,23 @@
 [
   {
+    "name": "allotiq",
+    "description": "AllotIQ: risk-aware hotel inventory pre-buy for TBO.com (VoyageHack 4.0, Team ELIXIR). Synthetic-data simulation.",
+    "url": "https://github.com/INEEDTHATGT3/allotiq",
+    "homepage": null,
+    "language": "Python",
+    "stars": 0,
+    "pushedAt": "2026-11-19T21:37:09Z",
+    "fork": false,
+    "archived": false
+  },
+  {
     "name": "dhruv-portfolio",
     "description": "Self-updating portfolio: Next.js 16, LaTeX résumé → JSON sync, live GitHub feed (ISR), hardware-aware React Three Fiber turbo.",
     "url": "https://github.com/INEEDTHATGT3/dhruv-portfolio",
     "homepage": "https://sambhavjaiswalportfolio.vercel.app",
     "language": "TypeScript",
     "stars": 0,
-    "pushedAt": "2026-11-18T08:58:14Z",
+    "pushedAt": "2026-11-19T09:16:04Z",
     "fork": false,
     "archived": false
   },
