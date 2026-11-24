@@ -1,5 +1,16 @@
 [
   {
+    "name": "dhruv-portfolio",
+    "description": "Self-updating portfolio: Next.js 16, LaTeX résumé → JSON sync, live GitHub feed (ISR), hardware-aware React Three Fiber turbo.",
+    "url": "https://github.com/INEEDTHATGT3/dhruv-portfolio",
+    "homepage": "https://sambhavjaiswalportfolio.vercel.app",
+    "language": "TypeScript",
+    "stars": 0,
+    "pushedAt": "2026-11-23T09:35:10Z",
+    "fork": false,
+    "archived": false
+  },
+  {
     "name": "ecsbc-envelope-check",
     "description": "Check DesignBuilder / EnergyPlus IDF building envelopes against India's ECSBC 2024 prescriptive limits: wall and roof U-factors (ISO 6946), WWR, window U and SHGC by orientation.",
     "url": "https://github.com/INEEDTHATGT3/ecsbc-envelope-check",
@@ -7,17 +18,6 @@
     "language": "Python",
     "stars": 0,
     "pushedAt": "2026-11-23T04:07:42Z",
-    "fork": false,
-    "archived": false
-  },
-  {
-    "name": "dhruv-portfolio",
-    "description": "Self-updating portfolio: Next.js 16, LaTeX résumé → JSON sync, live GitHub feed (ISR), hardware-aware React Three Fiber turbo.",
-    "url": "https://github.com/INEEDTHATGT3/dhruv-portfolio",
-    "homepage": "https://sambhavjaiswalportfolio.vercel.app",
-    "language": "TypeScript",
-    "stars": 0,
-    "pushedAt": "2026-11-23T00:40:13Z",
     "fork": false,
     "archived": false
   },
